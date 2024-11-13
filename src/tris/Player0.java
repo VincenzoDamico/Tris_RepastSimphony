@@ -21,30 +21,45 @@ public class Player0 {
 	public void step () {
 		if(!isWinner("0") ) {
 			RunEnvironment.getInstance().endRun();
-		}
+		} 
+		
+		
 		//è tua l'ultima mossa
 		//verifico se qualcuno a vinto o se è finata in patta 
 		//l'idea è che l'agente deve valutare se li conviene fermare l'avversario o cercare di vincere 
 		//come faccio sta valutazione?
+		
 		if(!isWinner("X") || !isFullGrid()) {
 			moved=true;
 		}else {
 			RunEnvironment.getInstance().endRun();}
 	}
+	
 	private boolean isFullGrid() {
 		return grid.size()==9;
 	}
-
-	private boolean isWinner(String s ) { //devo capire come esplorare la griglia 
-		for(int i=0; i<gridDim;i++) {
-			for(int j=0; j<gridDim;j++) {
-				String el=(String) grid.getObjectAt(i,j);
-				if (el.equals(s)) {
-					
-				}
-			}
-		}
+	
+	private boolean isWinner(String s) {
+		//devo capire come esplorare la griglia 
+        for (int i = 0; i < 3; i++) {
+            if (grid.getObjectAt(i,0).equals(s) &&grid.getObjectAt(i,1).equals(s) && grid.getObjectAt(i,2).equals(s)) {
+                return true;
+            }
+        }
+        // Controllo colonne
+        for (int i = 0; i < 3; i++) {
+            if (grid.getObjectAt(0,i).equals(s) &&grid.getObjectAt(1,i).equals(s) && grid.getObjectAt(2,i).equals(s)) {
+                return true;
+            }
+        }
+        // Controllo diagonale principale
+        if (grid.getObjectAt(0,0).equals(s) &&grid.getObjectAt(1,1).equals(s) && grid.getObjectAt(2,2).equals(s)) {
+            return true;
+        }
+        // Controllo diagonale secondaria
+        if (grid.getObjectAt(2,2).equals(s) &&grid.getObjectAt(1,1).equals(s) && grid.getObjectAt(0,0).equals(s)) {
+            return true;
+        }
 		return false;
 	}
-
 }
