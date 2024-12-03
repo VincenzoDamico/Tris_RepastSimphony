@@ -1,8 +1,10 @@
 package tris;
 import utils.Pair;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ScheduledMethod;
@@ -18,16 +20,18 @@ public class Player2 extends QlearnigTemplate	{
 	private final int gridDimY;
 	private final int winCount;
 	private  float reward =0;
-	private final int alpha;
-	private final int discount_factor;
-	private final int epsilon;
-	private double q_table[][];
+	private final float alpha;
+	private final float discount_factor;
+	private final float epsilon;
+	
+	private Map<Pair<Integer,Integer>,Float> q_table;
+	
 	private List<Pair<Integer, Integer>> knownAction=new LinkedList<>();
 	private Pair<Integer,Integer> state;
 	private String mark;
 	List<Pair<Integer,Integer>>possibleAction;
 	
-	public Player2 (  Grid < Object > grid, int gridDimX, int gridDimY, int winCount, int alpha, int discount_factor, int epsilon, List<Pair<Integer,Integer>>possibleAction, String mark) {
+	public Player2 (  Grid < Object > grid, int gridDimX, int gridDimY, int winCount, float alpha, float discount_factor, float epsilon, List<Pair<Integer,Integer>>possibleAction, String mark) {
 		this.grid = grid ;
 		this.gridDimX=gridDimX;
 		this.gridDimY=gridDimY;
@@ -38,7 +42,7 @@ public class Player2 extends QlearnigTemplate	{
 		this.epsilon=epsilon;
 		this.possibleAction=possibleAction;
 		this.mark=mark;
-		q_table=new double [gridDimX][gridDimY];
+		q_table=new HashMap<>(gridDimX*gridDimY); 
 		utils.utilsOp.inizialize(q_table, gridDimX, gridDimY);
 		
 		state=new Pair<>(new Random().nextInt(gridDimX),new Random().nextInt(gridDimY));
@@ -48,17 +52,7 @@ public class Player2 extends QlearnigTemplate	{
 	
 	@ScheduledMethod( start = 2 , interval = 2) 
 	public void step () {
-		while(true) {
-			if(epsilonPolicy()) { 
-				explore();
-			}else {
-				updateQtable();
-				break;
-			}
-		}
-		if(isDone()) {
-			RunEnvironment.getInstance().endRun();
-		}
+		QlearningAlg();
 	}
 	 
 	protected boolean epsilonPolicy() {
@@ -70,7 +64,8 @@ public class Player2 extends QlearnigTemplate	{
 		double maxValue=maxAction.getFirst();
 		int el =maxAction.getSecond();		
 		Pair <Integer,Integer> newState=knownAction.get(el);
-		q_table[state.getFirst()][state.getSecond()]+=alpha*(reward+discount_factor*q_table[newState.getFirst()][newState.getSecond()] -q_table[state.getFirst()][state.getSecond()]);
+		float val=q_table.get(state)+alpha*(reward+discount_factor*q_table.get(newState) -q_table.get(state));
+		q_table.put(state,val);
 		state=newState;
 		
 		grid.getAdder().add(grid, mark);
@@ -90,13 +85,13 @@ public class Player2 extends QlearnigTemplate	{
 	private Pair<Double, Integer> MaxAction() {
 		int el=0;
 		Pair<Integer, Integer> p0=knownAction.get(el);
-		double max=q_table[p0.getFirst()][p0.getSecond()];
+		double max=q_table.get(p0);
 		
 		for(int i=1;i< knownAction.size(); i++) {
 			Pair <Integer , Integer> p=knownAction.get(i);
-			if (q_table[p.getFirst()][p.getSecond()]>max) {
+			if (q_table.get(p)>max) {
 				el=i;
-				max= q_table[p.getFirst()][p.getSecond()];
+				max=q_table.get(p);
 			}
 		}
 		return new Pair<Double, Integer>(max, el);
@@ -117,4 +112,7 @@ public class Player2 extends QlearnigTemplate	{
 		return grid.size()==gridDimX*gridDimY;
 	}
 
+	protected void end() {
+		RunEnvironment.getInstance().endRun();
+	}
 }

@@ -1,15 +1,16 @@
 package utils;
 
+import java.util.Map;
 import java.util.Random;
 
 import repast.simphony.space.grid.Grid;
 
 public class utilsOp {
-	public static void inizialize(double [][] q_table,int gridDimX,int gridDimY) {
+	public static void inizialize( Map<Pair<Integer,Integer>,Float> q_table,int gridDimX,int gridDimY) {
 		Random r=new Random();
         for (int i = 0; i < gridDimY; i++) 
             for (int j = 0; j < gridDimX; j++) {
-            	q_table[i][j]=r.nextDouble();
+            	q_table.put(new Pair<>(i,j),r.nextFloat());
         }
 	}
 	

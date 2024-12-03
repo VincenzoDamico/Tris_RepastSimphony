@@ -24,9 +24,9 @@ public class TrisBuilder  implements ContextBuilder<Object> {
 	final public static int DIMGRIDX=3;
 	final public static int DIMGRIDY=3;
 	final public static int WINCOUNT=3;
-	final public static int ALPHA=3;
-	final public static int EPSION=3;
-	final public static int DISCOUNT_FACTOR=3;
+	final public static float ALPHA=3;
+	final public static float EPSION=3;
+	final public static float DISCOUNT_FACTOR=3;
 
 	@Override
 	public Context build(Context<Object> context) {

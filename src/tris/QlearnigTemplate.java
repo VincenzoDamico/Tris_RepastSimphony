@@ -1,23 +1,25 @@
 package tris;
 
 import repast.simphony.engine.environment.RunEnvironment;
-
+import repast.simphony.engine.schedule.ScheduledMethod;
 public abstract class QlearnigTemplate {
-	
-	public void step () {
+
+//int epsilon,int alfa , int reward , int discount_factor da metter e o no ?
+	public void QlearningAlg () {
 		while(true) {
-			//possibleAction.isEmpty() in teoria non dovrebbe essere possibile ma il controllo lo metto lo stesso 
 			if(epsilonPolicy()) { 
 				explore();
 			}else {
 				updateQtable();
 				break;
 			}
-		}
-		if(isDone()) {
-			RunEnvironment.getInstance().endRun();
+			if(isDone()) {
+				end();
+			}
 		}
 	}
+
+	protected abstract void end();
 
 	protected abstract boolean isDone();
 
