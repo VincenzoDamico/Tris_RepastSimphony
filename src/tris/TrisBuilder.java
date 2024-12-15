@@ -1,5 +1,9 @@
 package tris;
 
+//creare ambiente di gioco con griglia e con i metodi che permetto di giocare (il simulatura) logica di gioco e di reward classe astratta
+//impostare i run 
+
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -31,10 +35,7 @@ public class TrisBuilder  implements ContextBuilder<Object> {
 	@Override
 	public Context build(Context<Object> context) {
 		context.setId("tris");
-	
-		GridFactory gridFactory = GridFactoryFinder . createGridFactory ( new HashMap() );
-		GridBuilderParameters gparam=GridBuilderParameters.singleOccupancy2D( new SimpleGridAdder<Object>(), new StrictBorders(), DIMGRIDX, DIMGRIDY);
-		Grid < Object > grid = gridFactory . createGrid ("grid", context , gparam);
+		GridPlayGround grid=new GridPlayGround(DIMGRIDX,DIMGRIDY,context);
 		
 		List<Pair<Integer,Integer>> possibleAction =new LinkedList<>(); 
 		//in teoria non c'è bisogno di gestire un aceso concorrenziale poichè i 2 agenti eseguono gli step uno dopo l'altro 

@@ -4,7 +4,6 @@ import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ScheduledMethod;
 public abstract class QlearnigTemplate {
 
-//int epsilon,int alfa , int reward , int discount_factor da metter e o no ?
 	public void QlearningAlg () {
 		while(true) {
 			if(epsilonPolicy()) { 
