@@ -10,10 +10,10 @@ public abstract class QlearnigTemplate {
 				explore();
 			}else {
 				updateQtable();
+				if(isDone()) {
+					end();
+				}
 				break;
-			}
-			if(isDone()) {
-				end();
 			}
 		}
 	}
