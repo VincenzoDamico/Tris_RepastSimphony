@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import utils.ElementWrap;
 import utils.Pair;
 
 
@@ -24,6 +25,8 @@ import repast.simphony.space.grid.GridBuilderParameters;
 import repast.simphony.space.grid.SimpleGridAdder;
 import repast.simphony.space.grid.StickyBorders;
 import repast.simphony.space.grid.StrictBorders;
+import tris.ground.Agent0;
+import tris.ground.AgentX;
 import tris.ground.GridPlayGround;
 import tris.player.Player1;
 import tris.player.Player2;
@@ -33,31 +36,24 @@ public class TrisBuilder  implements ContextBuilder<Object> {
 	final public static int DIMGRIDY=3;
 	final public static int WINCOUNT=3;
 	final public static float ALPHA=0.5f; //set generally between 0 and 1
-	final public static float EPSION=0.3f;
-	final public static float DISCOUNT_FACTOR=0.5f;  //limitato tra 0 e 1
+	final public static float EPSION=0.3f; 
+	final public static float DISCOUNT_FACTOR=0.5f;  
+	final public static float DELTA=0.5f;  
+	final public static int MAXREP=30;
+
 
 	@Override
 	public Context build(Context<Object> context) {
 		context.setId("tris");
 		GridPlayGround<String> grid=new GridPlayGround(context,DIMGRIDX,DIMGRIDY);
-		List<Pair<Integer,Integer>> possibleAction = Collections.synchronizedList(new LinkedList<>()); 
-		//in teoria non c'è bisogno di gestire un accesso concorrenziale poichè i 2 agenti eseguono gli step uno dopo l'altro 
-		fill(possibleAction);
-
+		List<Pair<Integer,Integer>> possibleAction = new LinkedList<>(); 
+		utils.utilsOp.fillPair(possibleAction,DIMGRIDX,DIMGRIDY);
+		ElementWrap<Boolean> restartFlag=new ElementWrap<>(false);
 		
-		context.add(new Player1 (grid,DIMGRIDX,DIMGRIDY,WINCOUNT, ALPHA, DISCOUNT_FACTOR, EPSION,possibleAction,"1"));
-		context.add(new Player2 (grid,DIMGRIDX,DIMGRIDY,WINCOUNT, ALPHA, DISCOUNT_FACTOR, EPSION,possibleAction,"2"));
+		context.add(new Player1 (grid,DIMGRIDX,DIMGRIDY,WINCOUNT, ALPHA, DISCOUNT_FACTOR, EPSION,possibleAction,new AgentX<String>("1"),DELTA,MAXREP,restartFlag));
+		context.add(new Player2 (grid,DIMGRIDX,DIMGRIDY,WINCOUNT, ALPHA, DISCOUNT_FACTOR, EPSION,possibleAction,new Agent0<String>("2"),DELTA,MAXREP,restartFlag));
 
 		return context;
-	}
-
-
-	private void fill(List<Pair<Integer, Integer>> possibleAction) {
-			for (int i=0; i<DIMGRIDX; i++) {
-				for(int j=0; j<DIMGRIDY; j++) {
-					possibleAction.add(new Pair<>(i,j));
-				}
-			}
 	}
 
 }

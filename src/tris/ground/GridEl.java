@@ -1,13 +1,16 @@
 package tris.ground;
 
-public class GridEl<T> implements PgEl<T> {
-	private int[] pos=new int[3];
+public class GridEl<T> {
+	private int[] pos=new int[2];
 	private T elememt;
+	public GridEl(T el) {
+		this.elememt=el;		
+	}
 
 	public GridEl(T el, int ...ps ) {
 		int i=0;
 		for (int v:ps ) {
-			if (i==3)
+			if (i==2)
 				break;
 			pos[i]=v;
 			i++;
@@ -18,9 +21,22 @@ public class GridEl<T> implements PgEl<T> {
 	public String toString() {
 		return elememt + "";
 	}
-	@Override
-	public T getElement() { 
+	
+	public T getEl() { 
 		return elememt;
+	}
+	public int[] getPos() { 
+		return pos;
+	}
+	public void setPos(int ...ps) { 
+		int i=0;
+		for (int v:ps ) {
+			if (i==2)
+				break;
+			pos[i]=v;
+			i++;
+		}
+		
 	}
 
 }

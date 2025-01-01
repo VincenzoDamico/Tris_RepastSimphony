@@ -1,4 +1,5 @@
 package tris.ground;
+import java.util.Collection;
 import java.util.HashMap;
 
 import repast.simphony.context.Context;
@@ -6,8 +7,10 @@ import repast.simphony.context.space.grid.GridFactory;
 import repast.simphony.context.space.grid.GridFactoryFinder;
 import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridBuilderParameters;
+import repast.simphony.space.grid.GridPoint;
 import repast.simphony.space.grid.SimpleGridAdder;
 import repast.simphony.space.grid.StrictBorders;
+import utils.ElementWrap;
 import utils.Pair;
 
 //pensa a come generalizzarlo 
@@ -36,16 +39,36 @@ public class GridPlayGround <T> implements PlayGround<T>{
 		System.out.println();	
 		
     }
-				
+	@Override	
+	public void clear() {
+	    for (int i = 0; i < dim[1]; i++) {
+			for (int j = 0; j < dim[0]; j++) {
+				GridEl<T> el = gridTris.getObjectAt(i, j);
+		            if (el != null) {
+		                context.remove(el);
+		            }	
+			}
+		}
+    }
+		
+
 
 
 	@Override
-	public void ChangeState(T element, int... state) {
-		  GridEl<T> el= new GridEl(element,state);
+	public void ChangeState(GridEl<T> element) {
 		PrintGrid();
-	    context.add(el);
-		//gridTris.getAdder().add(gridTris, element);
-		gridTris.moveTo(el,state);	
+		
+		if (element instanceof AgentX) {
+			AgentX<T> el= new AgentX<>(element.getEl(),element.getPos());
+			context.add(el);
+			gridTris.moveTo(el,el.getPos());	
+		}else {
+			Agent0<T> el= new Agent0<>(element.getEl(),element.getPos());
+			context.add(el);
+			gridTris.moveTo(el,el.getPos());	
+		}
+		
+
 		PrintGrid();
 	}
 	

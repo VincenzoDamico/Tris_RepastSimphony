@@ -31,6 +31,7 @@ public class Pair<E,V> implements Cloneable{
 	public String toString() {
 		return "Pair [firstEl=" + firstEl + ", secondEl=" + secondEl + "]";
 	}
+	
 
 
 	@Override
@@ -59,4 +60,11 @@ public class Pair<E,V> implements Cloneable{
 	       return null;
 	    }
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(firstEl, secondEl);
+	}
+
+	
 }
