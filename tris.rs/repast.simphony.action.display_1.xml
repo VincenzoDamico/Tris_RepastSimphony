@@ -7,8 +7,16 @@
       <string>repast.simphony.visualizationOGL2D.DefaultStyleOGL2D</string>
     </entry>
     <entry>
+      <string>tris.ground.Agent0</string>
+      <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
+    </entry>
+    <entry>
       <string>tris.player.Player2</string>
       <string>repast.simphony.visualizationOGL2D.DefaultStyleOGL2D</string>
+    </entry>
+    <entry>
+      <string>tris.ground.AgentX</string>
+      <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
     </entry>
   </styles>
   <editedStyles>
@@ -17,8 +25,16 @@
       <null/>
     </entry>
     <entry>
+      <string>tris.ground.Agent0</string>
+      <string>tris.ground.Agent0.style_0.xml</string>
+    </entry>
+    <entry>
       <string>tris.player.Player2</string>
       <null/>
+    </entry>
+    <entry>
+      <string>tris.ground.AgentX</string>
+      <string>tris.ground.AgentX.style_1.xml</string>
     </entry>
   </editedStyles>
   <netStyles/>
@@ -31,7 +47,7 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>-1376340012</hashCode>
+    <hashCode>-1396154777</hashCode>
   </schedParams>
   <layoutClassName>foo.bar.baz</layoutClassName>
   <layoutProjection>gridTris</layoutProjection>
@@ -39,10 +55,18 @@
   <layerOrder>
     <entry>
       <string>tris.player.Player1</string>
+      <int>3</int>
+    </entry>
+    <entry>
+      <string>tris.ground.Agent0</string>
       <int>1</int>
     </entry>
     <entry>
       <string>tris.player.Player2</string>
+      <int>2</int>
+    </entry>
+    <entry>
+      <string>tris.ground.AgentX</string>
       <int>0</int>
     </entry>
   </layerOrder>
@@ -54,7 +78,7 @@
     </repast.simphony.scenario.data.ProjectionData>
   </projections>
   <visualizationProperties class="repast.simphony.visualization.UnitSizeLayoutProperties">
-    <unitSize>15.0</unitSize>
+    <unitSize>100.0</unitSize>
   </visualizationProperties>
   <projectionDescriptors>
     <entry>
@@ -71,7 +95,7 @@
               </entry>
               <entry>
                 <string>UNIT_SIZE</string>
-                <float>15.0</float>
+                <float>100.0</float>
               </entry>
               <entry>
                 <string>SHOW</string>

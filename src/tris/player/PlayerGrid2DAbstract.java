@@ -1,5 +1,6 @@
 package tris.player;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -18,15 +19,10 @@ import utils.Pair;
 
 public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements Player	{
 	private GridPlayGround<String> grid ;
-	private  final int gridDimX;
-	private final int gridDimY;
-	private final int winCount;
 	private final float delta;
-
 	private int countWin=0;
-	private int countPar=0;
-
-
+	private ElementWrap<Integer > countTies;
+	private  boolean  restart =false;
 	private  float reward =0;
 	private final float alpha;
 	private final float discount_factor;
@@ -38,29 +34,28 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 	private GridEl<String> mark;
 	private List<Pair<Integer,Integer>>possibleAction;
 	private List<Pair<Integer,Integer>>notExplored;
-	private ElementWrap<Boolean> restart;
-	
-	public PlayerGrid2DAbstract (  GridPlayGround grid, int gridDimX, int gridDimY, int winCount, float alpha, float discount_factor, float epsilon, List<Pair<Integer,Integer>>possibleAction, GridEl<String> mark,float delta,ElementWrap<Boolean> restart) {
-		this.grid = grid ;
-		this.gridDimX=gridDimX;
-		this.gridDimY=gridDimY;
-		this.winCount=winCount;
-		this.delta=delta;
-		this.restart=restart;
 
-		//creazione q-table random 
+	
+	public PlayerGrid2DAbstract (  GridPlayGround grid, float alpha, float discount_factor, float epsilon, List<Pair<Integer,Integer>>possibleAction, GridEl<String> mark,float delta,ElementWrap<Integer > countTies) {
+		this.grid = grid ;
+		this.delta=delta;
+		this.countTies=countTies;		
+		this.mark=mark;
 		this.alpha=alpha;
 		this.discount_factor= discount_factor;
 		this.epsilon=epsilon;
+		//gestione mosse + q table 
 		this.possibleAction=possibleAction;
-		this.mark=mark;
-		q_table=new HashMap<>(gridDimX*gridDimY); 
-		utils.utilsOp.inizialize( q_table,gridDimX,gridDimY);
+		q_table=new HashMap<>(grid.getDimX()*grid.getDimY()); 
+		System.out.println("Inizializzazione valore casuali qtable player"+mark.getEl());
+		utils.utilsOp.inizialize( q_table,grid.getDimX(),grid.getDimY());
 		old_Qtable=utils.utilsOp.copy(q_table);
 		inizialize();
 	}
+	
 	private void inizialize() {
-		System.out.println("restart inizialize"+ restart);
+		System.out.println("\nInizio del match numero: "+grid.getNubMatch()
+		+"\nTocca a Player "+mark.getEl());
 
 		knownAction=new LinkedList<Pair<Integer, Integer>>();
 		notExplored=new LinkedList<>(possibleAction);
@@ -68,29 +63,31 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 		state=possibleAction.remove(inizialState);
 		notExplored.remove(inizialState);
 		mark.setPos(state.getFirst(),state.getSecond());
-		grid.ChangeState(mark);
+		grid.changeState(mark);
+		
 	}
+	
 	private void reinizialize() {
 		possibleAction.clear();
 		grid.clear();
-		utils.utilsOp.fillPair(possibleAction,gridDimX, gridDimY );
+		System.out.println("Ricominciamo la partita");
+		grid.printGrid();
+		utils.utilsOp.fillPair(possibleAction,grid.getDimX(), grid.getDimY() );
 		old_Qtable=utils.utilsOp.copy(q_table);
 		inizialize();
-
 	}
 	
 	protected boolean epsilonPolicy() {
-		System.out.println("restart epsilonPolicy "+ restart);
-
-		if (restart.getEl()== true) {
-			inizialize();
-			restart.setEl(false);
+		if (!grid.isRestarting()) {
+			restart=false;
+			updateExp();		
+			float el=(float) Math.random();
+			return (knownAction.isEmpty() || el<epsilon) && !notExplored.isEmpty();
 		}
-		updateExp();
-		float el=(float) Math.random();
-		return (knownAction.isEmpty() || el<epsilon) && !notExplored.isEmpty();
-	}
-	
+		restart=true;
+		inizialize();
+		return false;
+	}	
 	private void updateExp() {
 		List<Pair<Integer,Integer>>rem =new LinkedList<>();
 		for( Pair<Integer,Integer> p: notExplored) {
@@ -111,77 +108,50 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 			knownAction.remove(p);
 		}
 	}
+	
+	protected void explore() {
+		System.out.println("Recap situazione:");
+		printInfo();
 
-	private void stampaC(String s) {
-		System.out.println("**************************** "+ mark);
+		System.out.println("Player "+mark.getEl()+ " sta esporando.......");
+		int el=new Random().nextInt(notExplored.size());
+		Pair<Integer, Integer> p= notExplored.get(el);
+		System.out.println("Nuova posizione scoperta -> "+p);
 
-		System.out.println(s);
-		System.out.println("\n Q table");
-		
-		for (Pair<Integer, Integer> p : q_table.keySet()) {
-			System.out.print(p+ "valore = ");
-			System.out.println(q_table.get(p));
-		}
-		
-		System.out.println("\n knownAction");
-		for (Pair<Integer, Integer> p : knownAction) {
-			System.out.println(p);
-		}
-		System.out.println("\n notExplored");
-		for (Pair<Integer, Integer> p : notExplored) {
-			System.out.println(p);
-		}
-		
-		System.out.println("\n possibleAction");
-		for (Pair<Integer, Integer> p : possibleAction) {
-			System.out.println(p);
-		}
-		System.out.println("****************************"+ mark);
-		
+		notExplored.remove(el);
+		knownAction.add(p);
+
+	
+
 	}
 	
 	protected void updateQtable() {
-		//stampaC("updateQtableI");
-		Pair <Double, Integer> maxAction= MaxAction();
-		double maxValue=maxAction.getFirst();
-		int el =maxAction.getSecond();		
-		Pair <Integer,Integer> newState=knownAction.get(el);
-
-		float val=q_table.get(state)+alpha*(reward+discount_factor*q_table.get(newState) -q_table.get(state));
-		q_table.put(state,val);
+		if (!restart) {
 		
-		state=newState;	
-		mark.setPos(state.getFirst(),state.getSecond());
-		grid.ChangeState(mark);
+			int el =MaxAction();
+			Pair <Integer,Integer> newState=knownAction.get(el);
+			float oldVal=q_table.get(state);
+			float val=oldVal+alpha*(reward+discount_factor*q_table.get(newState) -oldVal);
+			q_table.put(state,val);
+			
+			System.out.println("Vecchia posizione -> " +state+"\nPosizione attuale -> " +newState+ "\nVecchio valore nella q-table:"+oldVal+ "\nNuovo valore nella q-table:"+val);
 
-		possibleAction.remove(state);
-		
-		knownAction.remove(el); 
-		//stampaC("updateQtableF");
-
+			state=newState;	
+			mark.setPos(state.getFirst(),state.getSecond());
+			grid.changeState(mark);
+			possibleAction.remove(state);
+			knownAction.remove(el); 
+	
+			printInfo();
+		}
 	}
 
 
-	protected void explore() {
-		//stampaC("exploreI");
-
-		int el=new Random().nextInt(notExplored.size());
-		Pair<Integer, Integer> p= notExplored.get(el);
-		System.out.print("elemento aggiunto alla list adelle azioni:");
-		System.out.println(p);
-		notExplored.remove(el);
-		knownAction.add(p);
-		//stampaC("exploreF");
-
-	}
-
-
-	private Pair<Double, Integer> MaxAction() {
-		//stampaC("MaxActionI");
+	private Integer MaxAction() {
 
 		int el=0;
 		Pair<Integer, Integer> p0= knownAction.get(el);        
-		double max=q_table.get(p0);
+		float max=q_table.get(p0);
 		
 		for(int i=1;i< knownAction.size(); i++) {
 			Pair <Integer , Integer> p=knownAction.get(i);		
@@ -190,28 +160,32 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 				max=q_table.get(p);
 			}
 		}
-		//stampaC("MaxActionF");
-		return new Pair<Double, Integer>(max, el);
+		return el;
 	}
 	
-	protected boolean isDone() {
-		if (isWinner() || isFullGrid()) {
-			System.out.println("\n Il Player: "+mark+" numero di vittorie: "+countWin+" numero di pareggi: "+countPar);
-			System.out.println(hasLearned());
-			System.out.println("Old Qtable -----------------------");
-			utils.utilsOp.PrintTable(old_Qtable,gridDimX,gridDimY);
-			System.out.println("Qtable -----------------------");
-			utils.utilsOp.PrintTable(q_table,gridDimX,gridDimY);
-			System.out.println(hasLearned()<delta);
+	protected boolean isDone() {		
+		if (!restart && (isWinner() || isFullGrid())) {
+			System.out.println("\nFine match numero: "+grid.getNubMatch());
+
+			System.out.println("Il Player: "+mark+" numero di vittorie: "+countWin+" numero di pareggi: "+countTies);
+			System.out.println("Valore parametro di confronto: "+hasLearned());
+			
+			System.out.println("\nOld Qtable");
+			utils.utilsOp.PrintTable(old_Qtable,grid.getDimX(),grid.getDimY());
+			System.out.println("Qtable");
+			utils.utilsOp.PrintTable(q_table,grid.getDimX(),grid.getDimY());
+			
 			if (hasLearned()<delta) {
+				System.out.println("Sono arrivato a una stagnazione è inutile continuare ");
 				return true;
 			}
-			System.out.println("Ricominciamo la partita");
-			restart.setEl(true);
+			if (grid.isGameOver()) {
+				System.out.println("ho raggiunto il massimo numero di simulazione");
+				return true;
+			}
 			reinizialize();
 			
 		}
-		System.out.println("restart "+restart);
 
 		return false;
 	}
@@ -227,10 +201,10 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 
 
 	private boolean isWinner() {
-		boolean won=utils.utilsOp.isWinner(mark,winCount,gridDimX,gridDimY,grid);
+		boolean won=grid.isWinner(mark);
 		if (won) {
 			reward +=10;
-			System.out.println("\n Il Player: "+mark+" ha vintooooooo!!");
+			System.out.println("\nIl Player: "+mark+" ha vintooooooo!!");
 			countWin++;
 		}
 		return won;
@@ -238,15 +212,44 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 
 	private boolean isFullGrid() {
         reward ++;
-        boolean ret=grid.size()==gridDimX*gridDimY;
+        boolean ret=grid.isFullGrid();
         if(ret) {
-        	System.out.println("\n Hanno pareggiato");
-        	countPar++;
+        	System.out.println("\nHanno pareggiato!!");
+        	countTies.setEl(countTies.getEl()+1);
         }
 		return ret;
 	}
 
 	protected void end() {
+		grid.printFinalData();
 		RunEnvironment.getInstance().endRun();
 	}
+	
+	private void printInfo() {
+		System.out.println("\nQ table");
+		utils.utilsOp.PrintTable(q_table,grid.getDimX(),grid.getDimY());
+		
+		System.out.println("\nLista elementi attualmente conosciuti:");
+		System.out.println(Arrays.toString(knownAction.toArray()));
+		
+		System.out.println("\nLista elementi ancora da esporare conosciuti:");
+		System.out.println(Arrays.toString(notExplored.toArray()));
+		
+		System.out.println("\nLista elementi che si possono eaplorare e conoscere");
+		System.out.println(Arrays.toString(possibleAction.toArray()));
+	}
+	
+	public float getReward() {
+		return reward;
+	}
+	public GridEl<String> getMark() {
+		return mark;
+	}
+	public int getWins() {
+		return countWin;
+	}
+	public int getTies() {
+		return countTies.getEl();
+	}	
+	
 }
