@@ -1,103 +1,18 @@
-FATAL [Thread-2] 2024-12-31T15:42:01,983 GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (8.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72) ~[?:?]
-	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:336) ~[?:?]
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38) ~[?:?]
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205) ~[?:?]
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231) ~[?:?]
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:375) ~[?:?]
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52) ~[?:?]
-	at java.lang.Thread.run(Thread.java:833) ~[?:?]
-Caused by: java.lang.reflect.InvocationTargetException
-	at tris.player.Player2$$FastClassByCGLIB$$5c3861ca.invoke(<generated>) ~[?:?]
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53) ~[?:?]
-	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69) ~[?:?]
-	... 7 more
-Caused by: java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
-	at java.util.LinkedList.checkElementIndex(LinkedList.java:559) ~[?:?]
-	at java.util.LinkedList.get(LinkedList.java:480) ~[?:?]
-	at tris.player.PlayerGrid2DAbstract.MaxAction(PlayerGrid2DAbstract.java:180) ~[?:?]
-	at tris.player.PlayerGrid2DAbstract.updateQtable(PlayerGrid2DAbstract.java:143) ~[?:?]
-	at tris.QlearnigTemplate.QlearningAlg(QlearnigTemplate.java:12) ~[?:?]
-	at tris.player.Player2.step(Player2.java:29) ~[?:?]
-	at tris.player.Player2$$FastClassByCGLIB$$5c3861ca.invoke(<generated>) ~[?:?]
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53) ~[?:?]
-	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69) ~[?:?]
-	... 7 more
-FATAL [Thread-2] 2024-12-31T16:04:45,040 GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (8.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72) ~[?:?]
-	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:336) ~[?:?]
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38) ~[?:?]
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205) ~[?:?]
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231) ~[?:?]
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:375) ~[?:?]
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52) ~[?:?]
-	at java.lang.Thread.run(Thread.java:833) ~[?:?]
-Caused by: java.lang.reflect.InvocationTargetException
-	at tris.player.Player2$$FastClassByCGLIB$$5c3861ca.invoke(<generated>) ~[?:?]
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53) ~[?:?]
-	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69) ~[?:?]
-	... 7 more
-Caused by: java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
-	at java.util.LinkedList.checkElementIndex(LinkedList.java:559) ~[?:?]
-	at java.util.LinkedList.get(LinkedList.java:480) ~[?:?]
-	at tris.player.PlayerGrid2DAbstract.MaxAction(PlayerGrid2DAbstract.java:180) ~[?:?]
-	at tris.player.PlayerGrid2DAbstract.updateQtable(PlayerGrid2DAbstract.java:143) ~[?:?]
-	at tris.QlearnigTemplate.QlearningAlg(QlearnigTemplate.java:12) ~[?:?]
-	at tris.player.Player2.step(Player2.java:29) ~[?:?]
-	at tris.player.Player2$$FastClassByCGLIB$$5c3861ca.invoke(<generated>) ~[?:?]
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53) ~[?:?]
-	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69) ~[?:?]
-	... 7 more
-FATAL [Thread-2] 2024-12-31T16:05:05,837 GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (8.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72) ~[?:?]
-	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:336) ~[?:?]
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38) ~[?:?]
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205) ~[?:?]
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231) ~[?:?]
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:375) ~[?:?]
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52) ~[?:?]
-	at java.lang.Thread.run(Thread.java:833) ~[?:?]
-Caused by: java.lang.reflect.InvocationTargetException
-	at tris.player.Player2$$FastClassByCGLIB$$5c3861ca.invoke(<generated>) ~[?:?]
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53) ~[?:?]
-	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69) ~[?:?]
-	... 7 more
-Caused by: java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
-	at java.util.LinkedList.checkElementIndex(LinkedList.java:559) ~[?:?]
-	at java.util.LinkedList.get(LinkedList.java:480) ~[?:?]
-	at tris.player.PlayerGrid2DAbstract.MaxAction(PlayerGrid2DAbstract.java:180) ~[?:?]
-	at tris.player.PlayerGrid2DAbstract.updateQtable(PlayerGrid2DAbstract.java:143) ~[?:?]
-	at tris.QlearnigTemplate.QlearningAlg(QlearnigTemplate.java:12) ~[?:?]
-	at tris.player.Player2.step(Player2.java:29) ~[?:?]
-	at tris.player.Player2$$FastClassByCGLIB$$5c3861ca.invoke(<generated>) ~[?:?]
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53) ~[?:?]
-	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69) ~[?:?]
-	... 7 more
-ERROR [AWT-EventQueue-0] 2024-12-31T16:59:08,451 RSApplication - Projection error
-repast.simphony.space.SpatialException: Number of new location dimensions must match grid dimensions
-	at repast.simphony.space.grid.AbstractGrid.moveTo(AbstractGrid.java:133) ~[?:?]
-	at tris.ground.GridPlayGround.ChangeState(GridPlayGround.java:64) ~[?:?]
-	at tris.player.PlayerGrid2DAbstract.inizialize(PlayerGrid2DAbstract.java:71) ~[?:?]
-	at tris.player.PlayerGrid2DAbstract.<init>(PlayerGrid2DAbstract.java:60) ~[?:?]
-	at tris.player.Player1.<init>(Player1.java:21) ~[?:?]
-	at tris.TrisBuilder.build(TrisBuilder.java:53) ~[?:?]
-	at repast.simphony.dataLoader.engine.ClassNameContextBuilder.build(ClassNameContextBuilder.java:41) ~[?:?]
-	at repast.simphony.dataLoader.engine.DataLoaderControllerAction.runInitialize(DataLoaderControllerAction.java:48) ~[?:?]
-	at repast.simphony.engine.controller.DefaultController$2.visit(DefaultController.java:214) ~[?:?]
-	at repast.simphony.engine.controller.DefaultController$2.visit(DefaultController.java:1) ~[?:?]
+ERROR [AWT-EventQueue-0] 2025-02-10T20:24:43,945 RSApplication - Error while initializing simulation
+repast.simphony.data2.DataException: Error creating MethodDataSource
+	at repast.simphony.data2.MethodDataSource.<init>(MethodDataSource.java:60) ~[?:?]
+	at repast.simphony.data2.builder.NonAggregateDataSetBuilder.defineMethodDataSource(NonAggregateDataSetBuilder.java:85) ~[?:?]
+	at repast.simphony.data2.engine.DataSetComponentControllerAction.createNABuilder(DataSetComponentControllerAction.java:134) ~[?:?]
+	at repast.simphony.data2.engine.DataSetComponentControllerAction.batchInitialize(DataSetComponentControllerAction.java:65) ~[?:?]
+	at repast.simphony.engine.controller.DefaultController$1.visit(DefaultController.java:192) ~[?:?]
+	at repast.simphony.engine.controller.DefaultController$1.visit(DefaultController.java:1) ~[?:?]
 	at repast.simphony.util.collections.NaryTree.preOrderTraverals(NaryTree.java:292) ~[?:?]
 	at repast.simphony.util.collections.NaryTree.preOrderTraverals(NaryTree.java:295) ~[?:?]
 	at repast.simphony.util.collections.NaryTree.preOrderTraverals(NaryTree.java:295) ~[?:?]
 	at repast.simphony.util.collections.NaryTree.preOrderTraversal(NaryTree.java:288) ~[?:?]
-	at repast.simphony.engine.controller.DefaultController.runInitialize(DefaultController.java:212) ~[?:?]
-	at repast.simphony.engine.controller.DefaultController.runInitialize(DefaultController.java:383) ~[?:?]
-	at repast.simphony.ui.RSApplication.initSim(RSApplication.java:171) ~[?:?]
+	at repast.simphony.engine.controller.DefaultController.batchInitialize(DefaultController.java:190) ~[?:?]
+	at repast.simphony.engine.controller.DefaultController.batchInitialize(DefaultController.java:349) ~[?:?]
+	at repast.simphony.ui.RSApplication.initSim(RSApplication.java:169) ~[?:?]
 	at repast.simphony.ui.action.InitRun.actionPerformed(InitRun.java:17) ~[?:?]
 	at javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1972) ~[?:?]
 	at javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2313) ~[?:?]
@@ -135,27 +50,26 @@ repast.simphony.space.SpatialException: Number of new location dimensions must m
 	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109) ~[?:?]
 	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101) ~[?:?]
 	at java.awt.EventDispatchThread.run(EventDispatchThread.java:90) ~[?:?]
-ERROR [AWT-EventQueue-0] 2024-12-31T16:59:11,794 RSApplication - Projection error
-repast.simphony.space.SpatialException: Number of new location dimensions must match grid dimensions
-	at repast.simphony.space.grid.AbstractGrid.moveTo(AbstractGrid.java:133) ~[?:?]
-	at tris.ground.GridPlayGround.ChangeState(GridPlayGround.java:64) ~[?:?]
-	at tris.player.PlayerGrid2DAbstract.inizialize(PlayerGrid2DAbstract.java:71) ~[?:?]
-	at tris.player.PlayerGrid2DAbstract.<init>(PlayerGrid2DAbstract.java:60) ~[?:?]
-	at tris.player.Player1.<init>(Player1.java:21) ~[?:?]
-	at tris.TrisBuilder.build(TrisBuilder.java:53) ~[?:?]
-	at repast.simphony.dataLoader.engine.ClassNameContextBuilder.build(ClassNameContextBuilder.java:41) ~[?:?]
-	at repast.simphony.dataLoader.engine.DataLoaderControllerAction.runInitialize(DataLoaderControllerAction.java:48) ~[?:?]
-	at repast.simphony.engine.controller.DefaultController$2.visit(DefaultController.java:214) ~[?:?]
-	at repast.simphony.engine.controller.DefaultController$2.visit(DefaultController.java:1) ~[?:?]
+Caused by: java.lang.NoSuchMethodException: tris.player.Player1.hasLearned()
+	at java.lang.Class.getMethod(Class.java:2227) ~[?:?]
+	at repast.simphony.data2.MethodDataSource.<init>(MethodDataSource.java:43) ~[?:?]
+	... 49 more
+ERROR [AWT-EventQueue-0] 2025-02-10T20:25:10,441 RSApplication - Error while initializing simulation
+repast.simphony.data2.DataException: Error creating MethodDataSource
+	at repast.simphony.data2.MethodDataSource.<init>(MethodDataSource.java:60) ~[?:?]
+	at repast.simphony.data2.builder.NonAggregateDataSetBuilder.defineMethodDataSource(NonAggregateDataSetBuilder.java:85) ~[?:?]
+	at repast.simphony.data2.engine.DataSetComponentControllerAction.createNABuilder(DataSetComponentControllerAction.java:134) ~[?:?]
+	at repast.simphony.data2.engine.DataSetComponentControllerAction.batchInitialize(DataSetComponentControllerAction.java:65) ~[?:?]
+	at repast.simphony.engine.controller.DefaultController$1.visit(DefaultController.java:192) ~[?:?]
+	at repast.simphony.engine.controller.DefaultController$1.visit(DefaultController.java:1) ~[?:?]
 	at repast.simphony.util.collections.NaryTree.preOrderTraverals(NaryTree.java:292) ~[?:?]
 	at repast.simphony.util.collections.NaryTree.preOrderTraverals(NaryTree.java:295) ~[?:?]
 	at repast.simphony.util.collections.NaryTree.preOrderTraverals(NaryTree.java:295) ~[?:?]
 	at repast.simphony.util.collections.NaryTree.preOrderTraversal(NaryTree.java:288) ~[?:?]
-	at repast.simphony.engine.controller.DefaultController.runInitialize(DefaultController.java:212) ~[?:?]
-	at repast.simphony.engine.controller.DefaultController.runInitialize(DefaultController.java:383) ~[?:?]
-	at repast.simphony.ui.RSApplication.initSim(RSApplication.java:171) ~[?:?]
-	at repast.simphony.ui.RSApplication.start(RSApplication.java:203) ~[?:?]
-	at repast.simphony.ui.action.StartRun.actionPerformed(StartRun.java:17) ~[?:?]
+	at repast.simphony.engine.controller.DefaultController.batchInitialize(DefaultController.java:190) ~[?:?]
+	at repast.simphony.engine.controller.DefaultController.batchInitialize(DefaultController.java:349) ~[?:?]
+	at repast.simphony.ui.RSApplication.initSim(RSApplication.java:169) ~[?:?]
+	at repast.simphony.ui.action.InitRun.actionPerformed(InitRun.java:17) ~[?:?]
 	at javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1972) ~[?:?]
 	at javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2313) ~[?:?]
 	at javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:405) ~[?:?]
@@ -192,3 +106,366 @@ repast.simphony.space.SpatialException: Number of new location dimensions must m
 	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109) ~[?:?]
 	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101) ~[?:?]
 	at java.awt.EventDispatchThread.run(EventDispatchThread.java:90) ~[?:?]
+Caused by: java.lang.NoSuchMethodException: tris.player.Player1.hasLearned()
+	at java.lang.Class.getMethod(Class.java:2227) ~[?:?]
+	at repast.simphony.data2.MethodDataSource.<init>(MethodDataSource.java:43) ~[?:?]
+	... 49 more
+ERROR [AWT-EventQueue-0] 2025-02-10T20:26:00,975 RSApplication - Error while initializing simulation
+repast.simphony.data2.DataException: Error creating MethodDataSource
+	at repast.simphony.data2.MethodDataSource.<init>(MethodDataSource.java:60) ~[?:?]
+	at repast.simphony.data2.builder.NonAggregateDataSetBuilder.defineMethodDataSource(NonAggregateDataSetBuilder.java:85) ~[?:?]
+	at repast.simphony.data2.engine.DataSetComponentControllerAction.createNABuilder(DataSetComponentControllerAction.java:134) ~[?:?]
+	at repast.simphony.data2.engine.DataSetComponentControllerAction.batchInitialize(DataSetComponentControllerAction.java:65) ~[?:?]
+	at repast.simphony.engine.controller.DefaultController$1.visit(DefaultController.java:192) ~[?:?]
+	at repast.simphony.engine.controller.DefaultController$1.visit(DefaultController.java:1) ~[?:?]
+	at repast.simphony.util.collections.NaryTree.preOrderTraverals(NaryTree.java:292) ~[?:?]
+	at repast.simphony.util.collections.NaryTree.preOrderTraverals(NaryTree.java:295) ~[?:?]
+	at repast.simphony.util.collections.NaryTree.preOrderTraverals(NaryTree.java:295) ~[?:?]
+	at repast.simphony.util.collections.NaryTree.preOrderTraversal(NaryTree.java:288) ~[?:?]
+	at repast.simphony.engine.controller.DefaultController.batchInitialize(DefaultController.java:190) ~[?:?]
+	at repast.simphony.engine.controller.DefaultController.batchInitialize(DefaultController.java:349) ~[?:?]
+	at repast.simphony.ui.RSApplication.initSim(RSApplication.java:169) ~[?:?]
+	at repast.simphony.ui.action.InitRun.actionPerformed(InitRun.java:17) ~[?:?]
+	at javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1972) ~[?:?]
+	at javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2313) ~[?:?]
+	at javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:405) ~[?:?]
+	at javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262) ~[?:?]
+	at javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:279) ~[?:?]
+	at java.awt.AWTEventMulticaster.mouseReleased(AWTEventMulticaster.java:297) ~[?:?]
+	at java.awt.Component.processMouseEvent(Component.java:6626) ~[?:?]
+	at javax.swing.JComponent.processMouseEvent(JComponent.java:3389) ~[?:?]
+	at java.awt.Component.processEvent(Component.java:6391) ~[?:?]
+	at java.awt.Container.processEvent(Container.java:2266) ~[?:?]
+	at java.awt.Component.dispatchEventImpl(Component.java:5001) ~[?:?]
+	at java.awt.Container.dispatchEventImpl(Container.java:2324) ~[?:?]
+	at java.awt.Component.dispatchEvent(Component.java:4833) ~[?:?]
+	at java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4948) ~[?:?]
+	at java.awt.LightweightDispatcher.processMouseEvent(Container.java:4575) ~[?:?]
+	at java.awt.LightweightDispatcher.dispatchEvent(Container.java:4516) ~[?:?]
+	at java.awt.Container.dispatchEventImpl(Container.java:2310) ~[?:?]
+	at java.awt.Window.dispatchEventImpl(Window.java:2780) ~[?:?]
+	at java.awt.Component.dispatchEvent(Component.java:4833) ~[?:?]
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773) ~[?:?]
+	at java.awt.EventQueue$4.run(EventQueue.java:722) ~[?:?]
+	at java.awt.EventQueue$4.run(EventQueue.java:716) ~[?:?]
+	at java.security.AccessController.doPrivileged(AccessController.java:399) ~[?:?]
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:86) ~[?:?]
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:97) ~[?:?]
+	at java.awt.EventQueue$5.run(EventQueue.java:746) ~[?:?]
+	at java.awt.EventQueue$5.run(EventQueue.java:744) ~[?:?]
+	at java.security.AccessController.doPrivileged(AccessController.java:399) ~[?:?]
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:86) ~[?:?]
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:743) ~[?:?]
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203) ~[?:?]
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124) ~[?:?]
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113) ~[?:?]
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109) ~[?:?]
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101) ~[?:?]
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:90) ~[?:?]
+Caused by: java.lang.NoSuchMethodException: tris.player.Player1.hasLearned()
+	at java.lang.Class.getMethod(Class.java:2227) ~[?:?]
+	at repast.simphony.data2.MethodDataSource.<init>(MethodDataSource.java:43) ~[?:?]
+	... 49 more
+FATAL [Thread-2] 2025-02-11T13:24:54,033 GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (192.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72) ~[?:?]
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:336) ~[?:?]
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38) ~[?:?]
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205) ~[?:?]
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231) ~[?:?]
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:375) ~[?:?]
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52) ~[?:?]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+Caused by: java.lang.reflect.InvocationTargetException
+	at tris.player.Player2$$FastClassByCGLIB$$5c3861ca.invoke(<generated>) ~[?:?]
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53) ~[?:?]
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69) ~[?:?]
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: bound must be positive
+	at java.util.Random.nextInt(Random.java:322) ~[?:?]
+	at tris.Qtable.explore(Qtable.java:139) ~[?:?]
+	at tris.player.PlayerGrid2DAbstract.exploreAction(PlayerGrid2DAbstract.java:96) ~[?:?]
+	at tris.QlearnigTemplate.QlearningAlg(QlearnigTemplate.java:10) ~[?:?]
+	at tris.player.Player2.step(Player2.java:29) ~[?:?]
+	at tris.player.Player2$$FastClassByCGLIB$$5c3861ca.invoke(<generated>) ~[?:?]
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53) ~[?:?]
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69) ~[?:?]
+	... 7 more
+FATAL [Thread-2] 2025-02-12T22:03:43,135 GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (7.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72) ~[?:?]
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:336) ~[?:?]
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38) ~[?:?]
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205) ~[?:?]
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231) ~[?:?]
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:375) ~[?:?]
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52) ~[?:?]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+Caused by: java.lang.reflect.InvocationTargetException
+	at tris.player.Player1$$FastClassByCGLIB$$5c3861c9.invoke(<generated>) ~[?:?]
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53) ~[?:?]
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69) ~[?:?]
+	... 7 more
+Caused by: java.lang.ArithmeticException: / by zero
+	at tris.ground.GridPlayGround.updateWinReward(GridPlayGround.java:56) ~[?:?]
+	at tris.player.PlayerGrid2DAbstract.isWinner(PlayerGrid2DAbstract.java:177) ~[?:?]
+	at tris.player.PlayerGrid2DAbstract.isDone(PlayerGrid2DAbstract.java:127) ~[?:?]
+	at tris.QlearnigTemplate.QlearningAlg(QlearnigTemplate.java:15) ~[?:?]
+	at tris.player.Player1.step(Player1.java:29) ~[?:?]
+	at tris.player.Player1$$FastClassByCGLIB$$5c3861c9.invoke(<generated>) ~[?:?]
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53) ~[?:?]
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69) ~[?:?]
+	... 7 more
+FATAL [Thread-2] 2025-02-12T22:19:19,196 GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (35.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72) ~[?:?]
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:336) ~[?:?]
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38) ~[?:?]
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205) ~[?:?]
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231) ~[?:?]
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:375) ~[?:?]
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52) ~[?:?]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+Caused by: java.lang.reflect.InvocationTargetException
+	at tris.player.Player1$$FastClassByCGLIB$$5c3861c9.invoke(<generated>) ~[?:?]
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53) ~[?:?]
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69) ~[?:?]
+	... 7 more
+Caused by: java.lang.NullPointerException: Cannot invoke "utils.Pair.getFirst()" because "ret" is null
+	at tris.Qtable.maxKnowAction(Qtable.java:82) ~[?:?]
+	at tris.player.PlayerGrid2DAbstract.greedyAction(PlayerGrid2DAbstract.java:108) ~[?:?]
+	at tris.QlearnigTemplate.QlearningAlg(QlearnigTemplate.java:12) ~[?:?]
+	at tris.player.Player1.step(Player1.java:29) ~[?:?]
+	at tris.player.Player1$$FastClassByCGLIB$$5c3861c9.invoke(<generated>) ~[?:?]
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53) ~[?:?]
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69) ~[?:?]
+	... 7 more
+FATAL [Thread-2] 2025-02-12T22:50:08,947 GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (24.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72) ~[?:?]
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:336) ~[?:?]
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38) ~[?:?]
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205) ~[?:?]
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231) ~[?:?]
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:375) ~[?:?]
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52) ~[?:?]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+Caused by: java.lang.reflect.InvocationTargetException
+	at tris.player.Player2$$FastClassByCGLIB$$5c3861ca.invoke(<generated>) ~[?:?]
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53) ~[?:?]
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69) ~[?:?]
+	... 7 more
+Caused by: java.lang.NullPointerException: Cannot invoke "utils.Pair.getFirst()" because "ret" is null
+	at tris.Qtable.maxKnowAction(Qtable.java:82) ~[?:?]
+	at tris.player.PlayerGrid2DAbstract.greedyAction(PlayerGrid2DAbstract.java:108) ~[?:?]
+	at tris.QlearnigTemplate.QlearningAlg(QlearnigTemplate.java:12) ~[?:?]
+	at tris.player.Player2.step(Player2.java:29) ~[?:?]
+	at tris.player.Player2$$FastClassByCGLIB$$5c3861ca.invoke(<generated>) ~[?:?]
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53) ~[?:?]
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69) ~[?:?]
+	... 7 more
+FATAL [Thread-2] 2025-02-16T14:22:32,956 GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (1.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72) ~[?:?]
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:336) ~[?:?]
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38) ~[?:?]
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205) ~[?:?]
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231) ~[?:?]
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:375) ~[?:?]
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52) ~[?:?]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+Caused by: java.lang.reflect.InvocationTargetException
+	at tris.player.Player1$$FastClassByCGLIB$$5c3861c9.invoke(<generated>) ~[?:?]
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53) ~[?:?]
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69) ~[?:?]
+	... 7 more
+Caused by: java.lang.NumberFormatException: For input string: "X"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:67) ~[?:?]
+	at java.lang.Integer.parseInt(Integer.java:668) ~[?:?]
+	at java.lang.Integer.parseInt(Integer.java:786) ~[?:?]
+	at tris.player.PlayerGrid2DAbstract.getReward(PlayerGrid2DAbstract.java:213) ~[?:?]
+	at tris.player.PlayerGrid2DAbstract.updateQtable(PlayerGrid2DAbstract.java:128) ~[?:?]
+	at tris.player.PlayerGrid2DAbstract.exploreAction(PlayerGrid2DAbstract.java:108) ~[?:?]
+	at tris.QlearnigTemplate.QlearningAlg(QlearnigTemplate.java:9) ~[?:?]
+	at tris.player.Player1.step(Player1.java:28) ~[?:?]
+	at tris.player.Player1$$FastClassByCGLIB$$5c3861c9.invoke(<generated>) ~[?:?]
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53) ~[?:?]
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69) ~[?:?]
+	... 7 more
+FATAL [Thread-2] 2025-02-16T14:38:57,733 GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (9.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72) ~[?:?]
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:336) ~[?:?]
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38) ~[?:?]
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205) ~[?:?]
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231) ~[?:?]
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:375) ~[?:?]
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52) ~[?:?]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+Caused by: java.lang.reflect.InvocationTargetException
+	at tris.player.Player1$$FastClassByCGLIB$$5c3861c9.invoke(<generated>) ~[?:?]
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53) ~[?:?]
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69) ~[?:?]
+	... 7 more
+Caused by: java.lang.NumberFormatException: For input string: "X"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:67) ~[?:?]
+	at java.lang.Integer.parseInt(Integer.java:668) ~[?:?]
+	at java.lang.Integer.parseInt(Integer.java:786) ~[?:?]
+	at tris.player.PlayerGrid2DAbstract.isWinner(PlayerGrid2DAbstract.java:183) ~[?:?]
+	at tris.player.PlayerGrid2DAbstract.isDone(PlayerGrid2DAbstract.java:136) ~[?:?]
+	at tris.QlearnigTemplate.QlearningAlg(QlearnigTemplate.java:13) ~[?:?]
+	at tris.player.Player1.step(Player1.java:28) ~[?:?]
+	at tris.player.Player1$$FastClassByCGLIB$$5c3861c9.invoke(<generated>) ~[?:?]
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53) ~[?:?]
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69) ~[?:?]
+	... 7 more
+FATAL [Thread-2] 2025-02-16T15:15:34,137 GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (1.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72) ~[?:?]
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:336) ~[?:?]
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38) ~[?:?]
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205) ~[?:?]
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231) ~[?:?]
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:375) ~[?:?]
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52) ~[?:?]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+Caused by: java.lang.reflect.InvocationTargetException
+	at tris.player.Player1$$FastClassByCGLIB$$5c3861c9.invoke(<generated>) ~[?:?]
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53) ~[?:?]
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69) ~[?:?]
+	... 7 more
+Caused by: java.lang.Error: Unresolved compilation problem: 
+	The method updateDrawReward() in the type GridPlayGround<String> is not applicable for the arguments (int)
+
+	at tris.player.PlayerGrid2DAbstract.isFullGrid(PlayerGrid2DAbstract.java:197) ~[?:?]
+	at tris.player.PlayerGrid2DAbstract.isDone(PlayerGrid2DAbstract.java:139) ~[?:?]
+	at tris.QlearnigTemplate.QlearningAlg(QlearnigTemplate.java:13) ~[?:?]
+	at tris.player.Player1.step(Player1.java:28) ~[?:?]
+	at tris.player.Player1$$FastClassByCGLIB$$5c3861c9.invoke(<generated>) ~[?:?]
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53) ~[?:?]
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69) ~[?:?]
+	... 7 more
+FATAL [Thread-2] 2025-02-16T15:17:04,467 GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (62.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72) ~[?:?]
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:336) ~[?:?]
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38) ~[?:?]
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205) ~[?:?]
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231) ~[?:?]
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:375) ~[?:?]
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52) ~[?:?]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+Caused by: java.lang.reflect.InvocationTargetException
+	at tris.player.Player2$$FastClassByCGLIB$$5c3861ca.invoke(<generated>) ~[?:?]
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53) ~[?:?]
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69) ~[?:?]
+	... 7 more
+Caused by: java.lang.ArrayIndexOutOfBoundsException: Index -1 out of bounds for length 2
+	at tris.ground.GridPlayGround.updateDrawReward(GridPlayGround.java:56) ~[?:?]
+	at tris.player.PlayerGrid2DAbstract.isFullGrid(PlayerGrid2DAbstract.java:197) ~[?:?]
+	at tris.player.PlayerGrid2DAbstract.isDone(PlayerGrid2DAbstract.java:139) ~[?:?]
+	at tris.QlearnigTemplate.QlearningAlg(QlearnigTemplate.java:13) ~[?:?]
+	at tris.player.Player2.step(Player2.java:28) ~[?:?]
+	at tris.player.Player2$$FastClassByCGLIB$$5c3861ca.invoke(<generated>) ~[?:?]
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53) ~[?:?]
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69) ~[?:?]
+	... 7 more
+FATAL [Thread-2] 2025-02-17T17:57:50,318 GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (747.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72) ~[?:?]
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:336) ~[?:?]
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38) ~[?:?]
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205) ~[?:?]
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231) ~[?:?]
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:375) ~[?:?]
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52) ~[?:?]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+Caused by: java.lang.reflect.InvocationTargetException
+	at tris.player.Player1$$FastClassByCGLIB$$5c3861c9.invoke(<generated>) ~[?:?]
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53) ~[?:?]
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69) ~[?:?]
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: bound must be positive
+	at java.util.Random.nextInt(Random.java:322) ~[?:?]
+	at tris.Qtable.explore(Qtable.java:137) ~[?:?]
+	at tris.player.PlayerGrid2DAbstract.exploreAction(PlayerGrid2DAbstract.java:103) ~[?:?]
+	at tris.QlearnigTemplate.QlearningAlg(QlearnigTemplate.java:9) ~[?:?]
+	at tris.player.Player1.step(Player1.java:28) ~[?:?]
+	at tris.player.Player1$$FastClassByCGLIB$$5c3861c9.invoke(<generated>) ~[?:?]
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53) ~[?:?]
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69) ~[?:?]
+	... 7 more
+FATAL [Thread-2] 2025-02-17T17:58:47,741 GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (7603.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72) ~[?:?]
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:336) ~[?:?]
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38) ~[?:?]
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205) ~[?:?]
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231) ~[?:?]
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:375) ~[?:?]
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52) ~[?:?]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+Caused by: java.lang.reflect.InvocationTargetException
+	at tris.player.Player1$$FastClassByCGLIB$$5c3861c9.invoke(<generated>) ~[?:?]
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53) ~[?:?]
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69) ~[?:?]
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: bound must be positive
+	at java.util.Random.nextInt(Random.java:322) ~[?:?]
+	at tris.Qtable.explore(Qtable.java:137) ~[?:?]
+	at tris.player.PlayerGrid2DAbstract.exploreAction(PlayerGrid2DAbstract.java:103) ~[?:?]
+	at tris.QlearnigTemplate.QlearningAlg(QlearnigTemplate.java:9) ~[?:?]
+	at tris.player.Player1.step(Player1.java:28) ~[?:?]
+	at tris.player.Player1$$FastClassByCGLIB$$5c3861c9.invoke(<generated>) ~[?:?]
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53) ~[?:?]
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69) ~[?:?]
+	... 7 more
+FATAL [Thread-2] 2025-02-17T18:21:44,174 GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (1.0)
+java.lang.NullPointerException: Cannot invoke "java.lang.Number.doubleValue()" because the return value of "repast.simphony.data2.NonAggregateDataSource.get(Object)" is null
+	at repast.simphony.data2.AggregateDSCreator$NumberCalculator.calcStats(AggregateDSCreator.java:32) ~[?:?]
+	at repast.simphony.data2.AggregateDSCreator$ADS.get(AggregateDSCreator.java:111) ~[?:?]
+	at repast.simphony.data2.AggregateDataSet.record(AggregateDataSet.java:80) ~[?:?]
+	at repast.simphony.data2.AbstractDataSetManager$ScheduledDataSet.execute(AbstractDataSetManager.java:120) ~[?:?]
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38) ~[?:?]
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205) ~[?:?]
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:238) ~[?:?]
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:375) ~[?:?]
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52) ~[?:?]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+FATAL [Thread-3] 2025-02-17T18:22:10,472 GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (1.0)
+java.lang.NullPointerException: Cannot invoke "java.lang.Number.doubleValue()" because the return value of "repast.simphony.data2.NonAggregateDataSource.get(Object)" is null
+	at repast.simphony.data2.AggregateDSCreator$NumberCalculator.calcStats(AggregateDSCreator.java:32) ~[?:?]
+	at repast.simphony.data2.AggregateDSCreator$ADS.get(AggregateDSCreator.java:111) ~[?:?]
+	at repast.simphony.data2.AggregateDataSet.record(AggregateDataSet.java:80) ~[?:?]
+	at repast.simphony.data2.AbstractDataSetManager$ScheduledDataSet.execute(AbstractDataSetManager.java:120) ~[?:?]
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38) ~[?:?]
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205) ~[?:?]
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:238) ~[?:?]
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:375) ~[?:?]
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52) ~[?:?]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+FATAL [Thread-2] 2025-02-17T18:25:20,330 GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (1.0)
+java.lang.NullPointerException: Cannot invoke "java.lang.Number.doubleValue()" because the return value of "repast.simphony.data2.NonAggregateDataSource.get(Object)" is null
+	at repast.simphony.data2.AggregateDSCreator$NumberCalculator.calcStats(AggregateDSCreator.java:32) ~[?:?]
+	at repast.simphony.data2.AggregateDSCreator$ADS.get(AggregateDSCreator.java:111) ~[?:?]
+	at repast.simphony.data2.AggregateDataSet.record(AggregateDataSet.java:80) ~[?:?]
+	at repast.simphony.data2.AbstractDataSetManager$ScheduledDataSet.execute(AbstractDataSetManager.java:120) ~[?:?]
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38) ~[?:?]
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205) ~[?:?]
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:238) ~[?:?]
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:375) ~[?:?]
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52) ~[?:?]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]

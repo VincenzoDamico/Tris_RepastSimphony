@@ -1,4 +1,4 @@
-package tris.ground;
+/*package tris20;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -13,6 +13,10 @@ import repast.simphony.space.grid.GridBuilderParameters;
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.space.grid.SimpleGridAdder;
 import repast.simphony.space.grid.StrictBorders;
+import tris.ground.AgentX;
+import tris.ground.Agent0;
+
+import tris.ground.GridEl;
 import tris.player.PlayerGrid2DAbstract;
 import utils.Costant;
 import utils.ElementWrap;
@@ -20,15 +24,15 @@ import utils.Pair;
 
 // rileva valor somma dei quadrati come si modifica ad ogni mossa
 
-public class GridPlayGround <T> implements PlayGround<T>{
-	private Grid <  GridEl<T> > gridTris;
+public class GridEnv <T> {
+	private Grid <  Player<T> > gridTris;
 	private Context<Object> context;
 	private int countMatch=1;
 	private boolean restart=false;
 	private float[] rewards;
 	private String oldTurnMark= Costant.MARKPL1;
 		
-	public GridPlayGround(Context<Object> context){
+	public GridEnv(Context<Object> context){
 		GridFactory gridFactory = GridFactoryFinder . createGridFactory ( new HashMap() );
 		GridBuilderParameters gparam=GridBuilderParameters.singleOccupancyND
 				( new SimpleGridAdder<Object>(), new StrictBorders(),  Costant.DIMGRIDX,Costant.DIMGRIDY);
@@ -38,7 +42,7 @@ public class GridPlayGround <T> implements PlayGround<T>{
 		this.context=context;
 	}
 	
-	@Override	
+		
 	public void updateWinReward(int i) {
 		System.out.println(i);
 		
@@ -49,12 +53,11 @@ public class GridPlayGround <T> implements PlayGround<T>{
 		
 		System.out.println(Arrays.toString(rewards));
 	}
-	@Override	
+		
 	public void updateDrawReward() {
 		for (int j=0; j<rewards.length;j++)
 			rewards[j]+=Costant.DRAW_REWARD;
 	}
-	@Override
 	public float getReward(int i) {
 		return rewards[i-1];
 	}
@@ -84,18 +87,17 @@ public class GridPlayGround <T> implements PlayGround<T>{
 		System.out.println(extractConf());	
 	}
 		
-	@Override
 	public int getNubMatch() {
 		// TODO Auto-generated method stub
 		return countMatch;
 	}
 
 	
-	@Override	
+		
 	public void clear() {
 	    for (int i = 0; i < Costant.DIMGRIDX; i++) {
 			for (int j = 0; j < Costant.DIMGRIDY; j++) {
-				GridEl<T> el = gridTris.getObjectAt(i, j);
+				Player<T> el = gridTris.getObjectAt(i, j);
 		            if (el != null) {
 		                context.remove(el);
 		            }	
@@ -106,12 +108,12 @@ public class GridPlayGround <T> implements PlayGround<T>{
 	
 
 	
-	@Override
+	
 	public boolean isRestarting() {
 		return restart;
 	}
 	
-	@Override
+	
 	public void notifyRestart() {
 		restart= !restart;
 	}
@@ -120,8 +122,8 @@ public class GridPlayGround <T> implements PlayGround<T>{
 	// -> la seconda i 2 player giocano normalmaente fino a vincere o a pareggiare
 	// -> la seconda il player che ha vinto capisce che il gioco è ricominciato e inizia a giocare
 
-	@Override
-	public void changeState(GridEl<T> element) {
+	
+	public void changeState(Player<T> element) {
 		//player1
 		if (element instanceof AgentX) {
 			//ricorda che la matrice è ribaltata
@@ -138,16 +140,16 @@ public class GridPlayGround <T> implements PlayGround<T>{
 		}
 	}
 	
-	@Override
+	
 	public Integer size() {
 		return gridTris.size();
 	}
 	
-	@Override
-	public GridEl<T> getElAt(int... location) {
+	
+	public Player<T> getElAt(int... location) {
 		GridEl<T> s=null;
 		try {
-		  s =(GridEl<T>)gridTris.getObjectAt(location);
+		  s =(Player<T>)gridTris.getObjectAt(location);
 		  
 		} catch (ClassCastException e) {
 		}
@@ -156,12 +158,12 @@ public class GridPlayGround <T> implements PlayGround<T>{
 	
 
 
-	@Override
+	
 	public boolean isFullGrid() {
 		return  size()==Costant.DIMGRIDX*Costant.DIMGRIDY;
 	}
 	
-	@Override
+	
 	public  boolean isWinner(String s) {
 	    for (int i = 0; i < Costant.DIMGRIDX; i++) {
 	    	for (int j = 0; j < Costant.DIMGRIDY; j++) {
@@ -196,7 +198,7 @@ public class GridPlayGround <T> implements PlayGround<T>{
 		return false;
 
 	}
-	@Override
+	
 	public boolean isGameOver() {
 		return countMatch==Costant.MAXREP;
 	}
@@ -224,4 +226,4 @@ public class GridPlayGround <T> implements PlayGround<T>{
 	
 	
 	
-}
+}*/

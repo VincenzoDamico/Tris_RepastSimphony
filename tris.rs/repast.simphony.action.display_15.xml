@@ -1,18 +1,10 @@
 <repast.simphony.visualization.engine.CartesianDisplayDescriptor simphonyVersion="2.10.0">
-  <name>Grid Display</name>
+  <name>Grid</name>
   <type>2D</type>
   <styles>
     <entry>
-      <string>tris.player.Player1</string>
-      <string>repast.simphony.visualizationOGL2D.DefaultStyleOGL2D</string>
-    </entry>
-    <entry>
       <string>tris.ground.Agent0</string>
       <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
-    </entry>
-    <entry>
-      <string>tris.player.Player2</string>
-      <string>repast.simphony.visualizationOGL2D.DefaultStyleOGL2D</string>
     </entry>
     <entry>
       <string>tris.ground.AgentX</string>
@@ -21,20 +13,12 @@
   </styles>
   <editedStyles>
     <entry>
-      <string>tris.player.Player1</string>
-      <null/>
-    </entry>
-    <entry>
       <string>tris.ground.Agent0</string>
-      <string>tris.ground.Agent0.style_0.xml</string>
-    </entry>
-    <entry>
-      <string>tris.player.Player2</string>
-      <null/>
+      <string>tris.ground.Agent0.style_1.xml</string>
     </entry>
     <entry>
       <string>tris.ground.AgentX</string>
-      <string>tris.ground.AgentX.style_1.xml</string>
+      <string>tris.ground.AgentX.style_2.xml</string>
     </entry>
   </editedStyles>
   <netStyles/>
@@ -47,23 +31,15 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>-1396154777</hashCode>
+    <hashCode>-127031708</hashCode>
   </schedParams>
   <layoutClassName>foo.bar.baz</layoutClassName>
   <layoutProjection>gridTris</layoutProjection>
   <layoutInterval>0</layoutInterval>
   <layerOrder>
     <entry>
-      <string>tris.player.Player1</string>
-      <int>3</int>
-    </entry>
-    <entry>
       <string>tris.ground.Agent0</string>
       <int>1</int>
-    </entry>
-    <entry>
-      <string>tris.player.Player2</string>
-      <int>2</int>
     </entry>
     <entry>
       <string>tris.ground.AgentX</string>
@@ -78,7 +54,7 @@
     </repast.simphony.scenario.data.ProjectionData>
   </projections>
   <visualizationProperties class="repast.simphony.visualization.UnitSizeLayoutProperties">
-    <unitSize>100.0</unitSize>
+    <unitSize>200.0</unitSize>
   </visualizationProperties>
   <projectionDescriptors>
     <entry>
@@ -95,7 +71,7 @@
               </entry>
               <entry>
                 <string>UNIT_SIZE</string>
-                <float>100.0</float>
+                <float>200.0</float>
               </entry>
               <entry>
                 <string>SHOW</string>

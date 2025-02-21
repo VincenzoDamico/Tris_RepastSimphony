@@ -7,12 +7,14 @@ public interface PlayGround<T> {
 	public void changeState(GridEl<T> element);
 	public Integer size();
 	public void clear();
-	public int  getDimX();
-	public int  getDimY();
-	public boolean isWinner(GridEl<T> mark);
+	public boolean isWinner(String mark);
 	public boolean isFullGrid() ;
 	public int  getNubMatch();
 	public boolean isRestarting();
+	public void notifyRestart();
 	public boolean isGameOver();
 	public void printFinalData();
+	public void updateWinReward(int i);
+	public void updateDrawReward();
+	public float getReward(int i);
 }

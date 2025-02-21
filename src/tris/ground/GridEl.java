@@ -2,12 +2,20 @@ package tris.ground;
 
 public class GridEl<T> {
 	private int[] pos=new int[2];
+	private int order;
+
 	private T elememt;
-	public GridEl(T el) {
-		this.elememt=el;		
+	public GridEl(int order,T el) {
+		this.elememt=el;
+		this.order=order;
+
+	}
+	
+	public int getOrder() {
+		return order;
 	}
 
-	public GridEl(T el, int ...ps ) {
+	public GridEl(int order,T el, int ...ps ) {
 		int i=0;
 		for (int v:ps ) {
 			if (i==2)
@@ -15,7 +23,10 @@ public class GridEl<T> {
 			pos[i]=v;
 			i++;
 		}
-		this.elememt=el;		
+		
+		this.elememt=el;
+		this.order=order;
+
 	}
 	@Override
 	public String toString() {

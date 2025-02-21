@@ -5,17 +5,14 @@ import repast.simphony.engine.schedule.ScheduledMethod;
 public abstract class QlearnigTemplate {
 
 	public void QlearningAlg () {
-		while(true) {
-			if(epsilonPolicy()) { 
-				explore();
-			}else {
-				updateQtable();
-				if(isDone()) {
-					end();
-				}
-				break;
-			}
+		if(epsilonPolicy()) { 
+			exploreAction();
+		}else {
+			greedyAction();
 		}
+		if(isDone()) {
+			end();
+		}	
 	}
 
 	protected abstract void end();
@@ -24,7 +21,7 @@ public abstract class QlearnigTemplate {
 
 	protected abstract boolean epsilonPolicy();
 
-	protected abstract void explore();
+	protected abstract void exploreAction();
 
-	protected abstract void updateQtable();
+	protected abstract void greedyAction();
 }

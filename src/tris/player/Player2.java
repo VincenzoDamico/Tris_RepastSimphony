@@ -1,4 +1,5 @@
 package tris.player;
+import utils.Costant;
 import utils.ElementWrap;
 import utils.Pair;
 
@@ -15,22 +16,24 @@ import tris.ground.GridPlayGround;
 
 public class Player2 extends PlayerGrid2DAbstract	{	
 	private GridPlayGround grid;
-	public Player2(GridPlayGround grid, float alpha, float discount_factor,float epsilon, List<Pair<Integer, Integer>> possibleAction, 
-			GridEl<String> mark,float delta,ElementWrap<Integer> countPar) {
-		super(grid, alpha, discount_factor, epsilon, possibleAction, mark, delta,countPar);
+	private GridEl<String> mark;
+	public Player2(GridPlayGround grid, List<Pair<Integer, Integer>> possibleAction, 
+			GridEl<String> mark,ElementWrap<Integer> countPar) {
+		super(grid, possibleAction, mark,countPar);
 		this.grid=grid;
+		this.mark=mark;
 	}
 	
 	@Override
 	@ScheduledMethod( start = 2 , interval = 2) 
 	public void step () {
-		//if(!grid.isGameOver()) {
+			if(grid.isRestarting()&& !grid.isYourTurn(mark.getEl()) && Costant.TURN_MODE) {
+				//System.out.println("Siamo nel"+ mark.getEl());
+
+				return;
+			}
 			System.out.println("\nSiamo nel Match numero: "+grid.getNubMatch());
 			QlearningAlg();
-		/*}else {
-			System.out.println("\nReward accumulate dal Player2 "+super.getReward());
-			RunEnvironment.getInstance().endRun();
-		}*/
 	}
 	 
 }

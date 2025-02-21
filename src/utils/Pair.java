@@ -1,8 +1,10 @@
 package utils;
 
+import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
-public class Pair<E,V> implements Cloneable{
+public class Pair<E,V> implements Cloneable, Serializable{
 	private E firstEl;
 	private V secondEl;
 
@@ -65,6 +67,13 @@ public class Pair<E,V> implements Cloneable{
 	public int hashCode() {
 		return Objects.hash(firstEl, secondEl);
 	}
-
+	
+	public  static void fillPair(List<Pair<Integer, Integer>> list,int gridDimX,int gridDimY) {
+		for (int i=0; i<gridDimX; i++) {
+			for(int j=0; j<gridDimY; j++) {
+				list.add(new Pair<>(i,j));
+			}
+		}
+	}
 	
 }

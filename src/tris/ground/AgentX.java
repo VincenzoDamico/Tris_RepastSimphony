@@ -4,11 +4,14 @@ import java.util.Objects;
 
 
 public class AgentX<T> extends GridEl<T>{
-	public AgentX(T el) {
-		super(el);		
+
+	public AgentX( int order,T el) {
+		super(order,el);		
+
 	}
-	public AgentX(T el, int ...ps ) {
-		super(el,ps);
+	public AgentX(int order,T el, int ...ps ) {
+		super(order,el,ps);
 	}
+	
 
 }
