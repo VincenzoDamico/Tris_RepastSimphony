@@ -71,7 +71,7 @@ public class Qtable implements Cloneable,Serializable{
 		     //seleziono dalle azioni possibili un elemento
 		     int el=new Random().nextInt(possibleAction.size());
 		     Pair<Integer,Integer> p=possibleAction.get(el);
-		     f[p.getFirst()*(gridDimY)+p.getSecond()]=new Random().nextFloat()/10f;
+		     f[p.getFirst()*(gridDimY)+p.getSecond()]=0f;//new Random().nextFloat()/10f;
 		     qtable.put(configuration,f);
 		     
 		     System.out.println("Posizione greedy scelta "+p+" valore: "+ f[p.getFirst()*(gridDimY)+p.getSecond()]);
@@ -89,7 +89,7 @@ public class Qtable implements Cloneable,Serializable{
 	        if (explored.isEmpty()){
                 int el=new Random().nextInt(possibleAction.size());
                 Pair<Integer, Integer> ret=possibleAction.get(el);
-                f[ret.getFirst()*(gridDimY)+ret.getSecond()]=new Random().nextFloat()/10f;
+                f[ret.getFirst()*(gridDimY)+ret.getSecond()]=0f;//new Random().nextFloat()/10f;
                 System.out.println("Posizione greedy scelta a caso: " + ret + " valore: " + f[ret.getFirst() * (gridDimY) + ret.getSecond()]);
                 return ret;
             }else {
@@ -159,7 +159,7 @@ public class Qtable implements Cloneable,Serializable{
 		     Pair<Integer,Integer> p=possibleAction.get(el);
 		     int val=p.getFirst()*(gridDimY)+p.getSecond();
 		     System.out.println("Posizione nell'array "+val+" Rappresentata come Pair: "+p);
-		     f[p.getFirst()*(gridDimY)+p.getSecond()]=new Random().nextFloat()/10f;
+		     f[p.getFirst()*(gridDimY)+p.getSecond()]=0f;//new Random().nextFloat()/10f;
 		     qtable.put(configuration,f);
 		     
 		     System.out.println("Posizione esporata "+p+" valore: "+ f[p.getFirst()*(gridDimY)+p.getSecond()]);
@@ -179,7 +179,7 @@ public class Qtable implements Cloneable,Serializable{
 				//inzialmente esploro cercando di conoscere tutte le possibili azioni 
 				int el=new Random().nextInt(notExplored.size());
 				ret=notExplored.get(el);
-				f[ret.getFirst()*(gridDimY)+ret.getSecond()]=new Random().nextFloat()/10f;
+				f[ret.getFirst()*(gridDimY)+ret.getSecond()]=0f;//new Random().nextFloat()/10f;
 			}else {
 				  System.out.println("Prendo una azione a caso");
 				  //poi l'esporazione diviene un modo per cambiare le carte in tavola

@@ -27,6 +27,8 @@ public class GridPlayGround <T> implements PlayGround<T>{
 	private boolean restart=false;
 	private float[] rewards;
 	private String oldTurnMark= Costant.MARKPL1;
+	private PlayerGrid2DAbstract[] opponents;
+
 		
 	public GridPlayGround(Context<Object> context){
 		GridFactory gridFactory = GridFactoryFinder . createGridFactory ( new HashMap() );
@@ -36,6 +38,13 @@ public class GridPlayGround <T> implements PlayGround<T>{
 		this.gridTris = gridFactory . createGrid ("gridTris", context , gparam);
 		rewards= new float[Costant.NUM_PLAYERS];		
 		this.context=context;
+		
+	}
+	public void setOppenets(PlayerGrid2DAbstract[] opponents) {
+		this.opponents= opponents;
+	}
+	public PlayerGrid2DAbstract getOpponent(int playerOrder) {
+		return opponents[playerOrder-1];
 	}
 	
 	@Override	
@@ -219,6 +228,13 @@ public class GridPlayGround <T> implements PlayGround<T>{
 
 	public boolean isYourTurn(String mark) {
 		return !oldTurnMark.equals(mark);
+	}
+	
+	public void updateOldQtable() {
+		for(PlayerGrid2DAbstract p:opponents) {
+			p.updateOldQtable();
+		}
+		
 	}
 	
 	

@@ -37,8 +37,9 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 	private GridEl<String> mark;
 	private List<Pair<Integer,Integer>>possibleAction;
 	public float countStep=0;
-
-
+	private boolean opponentMove=false;
+	private Pair<String, Pair<Integer,Integer>> state_actionOpp;
+	private PlayerGrid2DAbstract opponent;
 	
 	public PlayerGrid2DAbstract (  GridPlayGround grid, List<Pair<Integer,Integer>>possibleAction, GridEl<String> mark,ElementWrap<Integer > countTies) {
 		this.grid = grid ;
@@ -48,6 +49,14 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 		this.possibleAction=possibleAction;
 	    old_Qtable=q_table.clone();
 	}
+	
+    public void  notifyOpponetAction(){
+    	opponentMove=true;
+	}
+    public void  resetOppMove(){
+    	opponentMove=false;
+	}
+
 	
 	private void loadQtable() {
 		File file = new File(Costant.NAME_FILE+mark.getEl());
@@ -73,16 +82,21 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 	
 	private void reload() {
 		//azioni iniziali condivise basta che le segue un singolo agente
-		//old_Qtable=q_table.clone();
 		possibleAction.clear();
+		grid.updateOldQtable();
 		grid.clear();
 		Pair.fillPair(possibleAction, Costant.DIMGRIDX,  Costant.DIMGRIDY );
 
 	}
 	
 	protected boolean epsilonPolicy() {
-
-		countStep++;
+		if (countStep==0)
+			opponent=grid.getOpponent(mark.getOrder());
+		
+		if(!opponent.opponentMove) {
+			countStep++;
+		}
+		
 		System.out.println("");
 		if (grid.isRestarting()) {
 			reload();
@@ -112,58 +126,114 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 	}
 	
 
-	protected void exploreAction() {
-		System.out.println("Recap situazione:");
-		printInfo();
-		System.out.println("Player "+mark.getEl()+ " sta esporando.......");
-		String configuration=grid.extractConf();
-		System.out.println("Vecchia Configurazione");
-		grid.printGrid();
-		Pair<Integer,Integer> action=q_table.explore(configuration,possibleAction);
-		System.out.println("Nuova posizione scoperta -> "+action);
-		possibleAction.remove(action);
-		mark.setPos(action.getFirst(),action.getSecond());
-		grid.changeState(mark);
-		System.out.println("Nuova Configurazione");
-		grid.printGrid();
-		updateQtable(configuration,action);
+	protected Pair<String, Pair<Integer,Integer>> exploreAction() {
+		if(!opponent.opponentMove) {
+			System.out.println("Recap situazione:");
+			printInfo();
+			System.out.println("Player "+mark.getEl()+ " sta esporando.......");
+			String configuration=grid.extractConf();
+			System.out.println("Vecchia Configurazione");
+			grid.printGrid();
+			Pair<Integer,Integer> action=q_table.explore(configuration,possibleAction);
+			System.out.println("Nuova posizione scoperta -> "+action);
+			possibleAction.remove(action);
+			mark.setPos(action.getFirst(),action.getSecond());
+			grid.changeState(mark);
+			System.out.println("Nuova Configurazione");
+			grid.printGrid();
+			return new Pair<String, Pair<Integer,Integer>>(configuration,action);
+		}
+		System.out.println("-----------RECUPERO LA MIA MOSSA EFFETUATA---------------");
+		System.out.println("Stato precedente:");
+		System.out.println(opponent.state_actionOpp.getFirst());
+		System.out.println("Azione scelta:");
+		System.out.println(opponent.state_actionOpp.getSecond());
+		opponent.resetOppMove();
+		return opponent.state_actionOpp;
 	}
 	
-	protected void greedyAction() {
-		System.out.println("Recap situazione:");
-		printInfo();
-		System.out.println("Player "+mark.getEl()+ " sta applicando greedy policy.......");
-		String configuration=grid.extractConf();
-		System.out.println("Vecchia Conf");
-		grid.printGrid();
-		Pair<Integer,Integer> action=q_table.maxKnowAction(configuration,possibleAction);
-		possibleAction.remove(action);
-		mark.setPos(action.getFirst(),action.getSecond());
-		grid.changeState(mark);
-		System.out.println("Nuova Configurazione");
-		grid.printGrid();
+	protected Pair<String, Pair<Integer,Integer>> greedyAction() {
+		if(!opponent.opponentMove) {
+			System.out.println("Recap situazione:");
+			printInfo();
+			System.out.println("Player "+mark.getEl()+ " sta applicando greedy policy.......");
+			String configuration=grid.extractConf();
+			System.out.println("Vecchia Conf");
+			grid.printGrid();
+			Pair<Integer,Integer> action=q_table.maxKnowAction(configuration,possibleAction);
+			possibleAction.remove(action);
+			mark.setPos(action.getFirst(),action.getSecond());
+			grid.changeState(mark);
+			System.out.println("Nuova Configurazione");
+			grid.printGrid();
+			
+			return new Pair<String, Pair<Integer,Integer>>(configuration,action);
+		}
+		System.out.println("-----------RECUPERO LA MIA MOSSA EFFETUATA---------------");
+		System.out.println("Stato precedente:");
+		System.out.println(opponent.state_actionOpp.getFirst());
+		System.out.println("Azione scelta:");
+		System.out.println(opponent.state_actionOpp.getSecond());
+		System.out.println("---------------------------------------------------------");
 
-		updateQtable(configuration,action);
+		opponent.resetOppMove();
+		return opponent.state_actionOpp;
+
 	}
 
-	private void updateQtable(String oldState, Pair<Integer,Integer> oldAction) {
+	protected void updateQtable(String oldState, Pair<Integer,Integer> oldAction) {
 		boolean won=grid.isWinner(mark.getEl());
 		boolean draw=grid.isFullGrid();
 		//aggiorno anche i punteggi
-		float reward=0;
-		if (won) {
-			reward=Costant.WIN_REWARD;
+		
+        String neWconfiguration=grid.extractConf();
+
+		float reward=0;		
+		if (won || draw) {
+			if (won) {
+				reward=Costant.WIN_REWARD;
+				grid.updateWinReward(mark.getOrder());
+				System.out.println("\nIl Player: "+mark+" ha vintooooooo!!");
+				countWin++;
 			}else {
 				if (draw) {
 					reward=Costant.DRAW_REWARD;
+					grid.updateDrawReward();
+					System.out.println("\nHanno pareggiato!!");
+					countTies.setEl(countTies.getEl()+1);
+				}
+			}
+			System.out.println("----------RISULTATI---------------");
+			System.out.println("\nFine match numero: "+grid.getNubMatch());
+			int loss=grid.getNubMatch()-countTies.getEl()-countWin;
+			System.out.println("Il Player"+mark+" -> Numero di vittorie: "+countWin+" Numero di pareggi: "+countTies+" Numero di sconfitte: "+loss);
+			System.out.println("Valore parametro di confronto: "+q_table.hasLearned(old_Qtable));
+			System.out.println("----------------------------------");
+
+			grid.notifyRestart();
+				
+		}else {
+				System.out.println("-----------INIZIO MOSSA OPPONENTE---------------");
+				state_actionOpp=opponent.epsilonGreedyPolicy();
+				System.out.println("-----------FINE MOSSA OPPONENTE---------------");
+				notifyOpponetAction();
+				if(grid.isWinner(opponent.getMark().getEl()))
+					reward=Costant.LOSE_REWARD;
+				else{
+					if(grid.isFullGrid()) {
+						reward=Costant.DRAW_REWARD;
+					}
 				}
 		}
-		
-		float oldValue=q_table.getValue(oldState, oldAction);
-		String neWconfiguration=grid.extractConf();
+		if(Costant.VERSIONS_QTABLE_UPDATE) {
+	        neWconfiguration=grid.extractConf();
+		}
 
-		float val=oldValue+Costant.ALPHA*(+Costant.DISCOUNT_FACTOR*q_table.maxValue(neWconfiguration) - oldValue);
+		float oldValue=q_table.getValue(oldState, oldAction);
+
+		float val=oldValue+Costant.ALPHA*(reward+Costant.DISCOUNT_FACTOR*q_table.maxValue(neWconfiguration) - oldValue);
 		q_table.setValue(oldState,oldAction,val);	
+		System.out.println("Nuovo valore: "+val);
 		printInfo();
 	
 	}
@@ -174,21 +244,6 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 		boolean draw=grid.isFullGrid();
 		
 		if (won || draw) {
-			if (won) {
-	    		grid.updateWinReward(mark.getOrder());
-				System.out.println("\nIl Player: "+mark+" ha vintooooooo!!");
-				countWin++;
-			}else {
-				if (draw) {
-					grid.updateDrawReward();
-					System.out.println("\nHanno pareggiato!!");
-					countTies.setEl(countTies.getEl()+1);
-				}
-		}
-			System.out.println("\nFine match numero: "+grid.getNubMatch());
-			int loss=grid.getNubMatch()-countTies.getEl()-countWin;
-			System.out.println("Il Player"+mark+" -> Numero di vittorie: "+countWin+" Numero di pareggi: "+countTies+" Numero di sconfitte: "+loss);
-			//System.out.println("Valore parametro di confronto: "+q_table.hasLearned(old_Qtable));
 
 			/*if (q_table.hasLearned(old_Qtable)<Costant.DELTA) {
 				System.out.println("Sono arrivato a una stagnazione è inutile continuare ");
@@ -198,7 +253,6 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 				System.out.println("ho raggiunto il massimo numero di simulazione");
 				return true;
 			}
-			grid.notifyRestart();
 		}
 
 		return false;
@@ -230,7 +284,6 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 			System.out.println("---------------------------");*/
 			float ret=q_table.hasLearned(old_Qtable);
 			System.out.println("Valore parametro di confronto: "+ret);
-			old_Qtable=q_table.clone();
 			/*System.out.println("---------------------------");
 			System.out.println("\nIl Player"+mark+" la nuova old Q table:");
 			System.out.println(old_Qtable);
@@ -238,7 +291,7 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 
 			return ret;
 		}
-		return -30000;
+		return -1;
 	}
 
 	protected void end() {
@@ -266,6 +319,10 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 	}
 	public int getTies() {
 		return countTies.getEl();
+	}
+
+	public void updateOldQtable() {
+		old_Qtable=q_table.clone();
 	}		
 	
 }

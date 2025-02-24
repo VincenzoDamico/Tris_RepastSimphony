@@ -35,9 +35,9 @@ import tris.ground.GridEl;
 import tris.ground.GridPlayGround;
 import tris.player.Player1;
 import tris.player.Player2;
+import tris.player.PlayerGrid2DAbstract;
 
 public class TrisBuilder  implements ContextBuilder<Object> {
-	
 	@Override
 	public Context build(Context<Object> context) {
 		context.setId("tris");
@@ -46,9 +46,14 @@ public class TrisBuilder  implements ContextBuilder<Object> {
 		Pair.fillPair(possibleAction,Costant.DIMGRIDX,Costant.DIMGRIDY);
 		
 		ElementWrap<Integer > countPar=new ElementWrap<>(0);
-		context.add(new Player1 (grid,possibleAction,new AgentX<String>(1,Costant.MARKPL1),countPar));
-		context.add(new Player2 (grid,possibleAction,new Agent0<String>(2,Costant.MARKPL2),countPar));
+		Player1 p1=new Player1 (grid,possibleAction,new AgentX<String>(1,Costant.MARKPL1),countPar);
+		Player2 p2=new Player2 (grid,possibleAction,new Agent0<String>(2,Costant.MARKPL2),countPar);
+
+		PlayerGrid2DAbstract[] opponets={p2,p1};
+		grid.setOppenets(opponets);	
 		
+		context.add(p1);
+		context.add(p2);
 		return context;
 	}
 
