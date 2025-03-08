@@ -1,38 +1,32 @@
 package tris.player;
 import utils.Costant;
-import utils.ElementWrap;
 import utils.Pair;
-
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ScheduledMethod;
-import repast.simphony.space.grid.Grid;
+import tris.ground.DashBoard;
 import tris.ground.GridEl;
 import tris.ground.GridPlayGround;
 
 public class Player2 extends PlayerGrid2DAbstract	{	
 	private GridPlayGround grid;
 	private GridEl<String> mark;
+	private DashBoard dashBoard;
 	public Player2(GridPlayGround grid, List<Pair<Integer, Integer>> possibleAction, 
-			GridEl<String> mark,ElementWrap<Integer> countPar) {
-		super(grid, possibleAction, mark,countPar);
+			GridEl<String> mark,DashBoard dashBoard) {
+		super(grid, possibleAction, mark,dashBoard);
 		this.grid=grid;
 		this.mark=mark;
+		this.dashBoard=dashBoard;
 	}
 	
 	@Override
 	@ScheduledMethod( start = 2 , interval = 2) 
 	public void step () {
 			if(grid.isRestarting()&& !grid.isYourTurn(mark.getEl()) && Costant.TURN_MODE) {
-				//System.out.println("Siamo nel"+ mark.getEl());
-
+				//Sto saltando la mossa perchè non è il mio turno
 				return;
 			}
-			System.out.println("\nSiamo nel Match numero: "+grid.getNubMatch());
+			System.out.println("\nSiamo nel Match numero: "+dashBoard.getMatches());
 			QlearningAlg();
 	}
 	 

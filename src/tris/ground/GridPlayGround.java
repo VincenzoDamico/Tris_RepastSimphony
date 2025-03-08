@@ -1,73 +1,34 @@
 package tris.ground;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
-
-import cern.colt.Arrays;
 import repast.simphony.context.Context;
 import repast.simphony.context.space.grid.GridFactory;
 import repast.simphony.context.space.grid.GridFactoryFinder;
 import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridBuilderParameters;
-import repast.simphony.space.grid.GridPoint;
 import repast.simphony.space.grid.SimpleGridAdder;
 import repast.simphony.space.grid.StrictBorders;
 import tris.player.PlayerGrid2DAbstract;
 import utils.Costant;
-import utils.ElementWrap;
-import utils.Pair;
 
-// rileva valor somma dei quadrati come si modifica ad ogni mossa
-
-public class GridPlayGround <T> implements PlayGround<T>{
+public class GridPlayGround <T> {
 	private Grid <  GridEl<T> > gridTris;
 	private Context<Object> context;
-	private int countMatch=1;
 	private boolean restart=false;
-	private float[] rewards;
 	private String oldTurnMark= Costant.MARKPL1;
 	private PlayerGrid2DAbstract[] opponents;
-
+	private DashBoard dash;
 		
-	public GridPlayGround(Context<Object> context){
+	public GridPlayGround(Context<Object> context, DashBoard dash){
 		GridFactory gridFactory = GridFactoryFinder . createGridFactory ( new HashMap() );
 		GridBuilderParameters gparam=GridBuilderParameters.singleOccupancyND
 				( new SimpleGridAdder<Object>(), new StrictBorders(),  Costant.DIMGRIDX,Costant.DIMGRIDY);
-		
+		this.dash=dash;
 		this.gridTris = gridFactory . createGrid ("gridTris", context , gparam);
-		rewards= new float[Costant.NUM_PLAYERS];		
 		this.context=context;
 		
 	}
-	public void setOppenets(PlayerGrid2DAbstract[] opponents) {
-		this.opponents= opponents;
-	}
-	public PlayerGrid2DAbstract getOpponent(int playerOrder) {
-		return opponents[playerOrder-1];
-	}
-	
-	@Override	
-	public void updateWinReward(int i) {
-		System.out.println(i);
-		
-		rewards[i-1]+=Costant.WIN_REWARD;
-		for (int j=0; j<rewards.length;j++)
-			if(j!=(i-1))
-				rewards[j]+=Costant.LOSE_REWARD;
-		
-		System.out.println(Arrays.toString(rewards));
-	}
-	@Override	
-	public void updateDrawReward() {
-		for (int j=0; j<rewards.length;j++)
-			rewards[j]+=Costant.DRAW_REWARD;
-	}
-	@Override
-	public float getReward(int i) {
-		return rewards[i-1];
-	}
-	
+
+//Informazioni sulla griglia
 	public boolean isEmpty() {
 		for (int j = Costant.DIMGRIDY-1; j >=0; j--) {	    
 			for (int i = 0; i <Costant.DIMGRIDX; i++) {
@@ -78,7 +39,7 @@ public class GridPlayGround <T> implements PlayGround<T>{
 		return true;
 	}
 	
-	//inverto la griglia poichè viene rappresentata in questo modo dul grafico
+	//inverto la griglia poichè viene rappresentata in questo modo sulla gui di repest
 	public String extractConf() {
 		String ret="";
 		for (int j = Costant.DIMGRIDY-1; j >=0; j--) {	    
@@ -92,67 +53,11 @@ public class GridPlayGround <T> implements PlayGround<T>{
 	public void printGrid() {
 		System.out.println(extractConf());	
 	}
-		
-	@Override
-	public int getNubMatch() {
-		// TODO Auto-generated method stub
-		return countMatch;
-	}
-
-	
-	@Override	
-	public void clear() {
-	    for (int i = 0; i < Costant.DIMGRIDX; i++) {
-			for (int j = 0; j < Costant.DIMGRIDY; j++) {
-				GridEl<T> el = gridTris.getObjectAt(i, j);
-		            if (el != null) {
-		                context.remove(el);
-		            }	
-			}
-		}
-	    countMatch++;
-    }
-	
-
-	
-	@Override
-	public boolean isRestarting() {
-		return restart;
-	}
-	
-	@Override
-	public void notifyRestart() {
-		restart= !restart;
-	}
-	// ho individuato 3 fasi 
-	// -> la prima il player che ha perso libera il campo da gioco e fa la priam mossa sul nuovo campo 
-	// -> la seconda i 2 player giocano normalmaente fino a vincere o a pareggiare
-	// -> la seconda il player che ha vinto capisce che il gioco è ricominciato e inizia a giocare
-
-	@Override
-	public void changeState(GridEl<T> element) {
-		//player1
-		if (element instanceof AgentX) {
-			//ricorda che la matrice è ribaltata
-			//player1
-			AgentX<T> el= new AgentX<>(2,element.getEl(),element.getPos()[1],Costant.DIMGRIDY-1-element.getPos()[0]);
-			context.add(el);
-			gridTris.moveTo(el,element.getPos()[1],Costant.DIMGRIDY-1-element.getPos()[0]);		
-		}else {
-			//player2
-			//ricorda che la matrice è ribaltata
-			Agent0<T> el= new Agent0<>(2,element.getEl(),element.getPos()[1],Costant.DIMGRIDY-1-element.getPos()[0]);
-			context.add(el);
-			gridTris.moveTo(el,element.getPos()[1],Costant.DIMGRIDY-1-element.getPos()[0]);	
-		}
-	}
-	
-	@Override
 	public Integer size() {
 		return gridTris.size();
-	}
+	}	
 	
-	@Override
+
 	public GridEl<T> getElAt(int... location) {
 		GridEl<T> s=null;
 		try {
@@ -164,13 +69,42 @@ public class GridPlayGround <T> implements PlayGround<T>{
 	} 
 	
 
+//Modifiche sulla griglia	
+	
+	public void clear() {
+	    for (int i = 0; i < Costant.DIMGRIDX; i++) {
+			for (int j = 0; j < Costant.DIMGRIDY; j++) {
+				GridEl<T> el = gridTris.getObjectAt(i, j);
+		            if (el != null) {
+		                context.remove(el);
+		            }	
+			}
+		}
+	    dash.updateMatches();
+    }
+	
+	public void changeState(GridEl<T> element) {
+		//player1
+		if (element instanceof AgentX) {
+			//ricorda che la matrice è ribaltata
+			//player1
+			AgentX<T> el= new AgentX<>(2,element.getEl(),element.getPosY(),Costant.DIMGRIDY-1-element.getPosX());
+			context.add(el);
+			gridTris.moveTo(el,element.getPosY(),Costant.DIMGRIDY-1-element.getPosX());		
+		}else {
+			//player2
+			//ricorda che la matrice è ribaltata
+			Agent0<T> el= new Agent0<>(2,element.getEl(),element.getPosY(),Costant.DIMGRIDY-1-element.getPosX());
+			context.add(el);
+			gridTris.moveTo(el,element.getPosY(),Costant.DIMGRIDY-1-element.getPosX());	
+		}
+	}
 
-	@Override
+// verifica risultato della partita
 	public boolean isFullGrid() {
 		return  size()==Costant.DIMGRIDX*Costant.DIMGRIDY;
 	}
 	
-	@Override
 	public  boolean isWinner(String s) {
 	    for (int i = 0; i < Costant.DIMGRIDX; i++) {
 	    	for (int j = 0; j < Costant.DIMGRIDY; j++) {
@@ -205,21 +139,25 @@ public class GridPlayGround <T> implements PlayGround<T>{
 		return false;
 
 	}
-	@Override
-	public boolean isGameOver() {
-		return countMatch==Costant.MAXREP;
+	
+//logica mosse Opponente
+	public void setOppenets(PlayerGrid2DAbstract[] opponents) {
+		this.opponents= opponents;
+	}
+	public PlayerGrid2DAbstract getOpponent(int playerOrder) {
+		return opponents[playerOrder-1];
 	}
 	
-	public void printFinalData() {
-		for (Object obj : context) {
-		    if (obj instanceof PlayerGrid2DAbstract) {
-		    	PlayerGrid2DAbstract agent = (PlayerGrid2DAbstract) obj;
-		    	System.out.println("\nReward accumulate dal Player"+agent.getMark() +" sono uguali a "+agent.getReward());
-		    	int lost=countMatch-agent.getWins()-agent.getTies();
-		    	System.out.println("Vittorie: "+agent.getWins()+" Pareggi: "+agent.getTies()+" Sconfitte: "+lost);
-
-		    }
-		}
+//logica mecccanismo a turni 
+	public boolean isRestarting() {
+		return restart;
+	}
+	
+	public void notifyRestart() {
+		restart= !restart;
+	}
+	public boolean isGameOver() {
+		return dash.getMatches()==Costant.MAXREP;
 	}
 
 	public void notifyStartTurn(String mark) {
@@ -234,9 +172,21 @@ public class GridPlayGround <T> implements PlayGround<T>{
 		for(PlayerGrid2DAbstract p:opponents) {
 			p.updateOldQtable();
 		}
-		
 	}
 	
+//Stampa finale risultati parita
+	//lo chiamo con uno stratagemma alla fine poichè ha l'oggeto contesto 
+	public void printFinalData() {
+		for (Object obj : context) {
+		    if (obj instanceof PlayerGrid2DAbstract) {
+		    	PlayerGrid2DAbstract agent = (PlayerGrid2DAbstract) obj;
+		    	int el=agent.getMark().getOrder();
+		    	System.out.println("\nReward accumulate dal Player"+agent.getMark() +" sono uguali a "+dash.getReward(el));
+		    	System.out.println("Vittorie: "+dash.getWins(el)+" Pareggi: "+dash.getTies()+" Sconfitte: "+dash.getLosses(el));
+
+		    }
+		}
+	}
 	
 	
 	

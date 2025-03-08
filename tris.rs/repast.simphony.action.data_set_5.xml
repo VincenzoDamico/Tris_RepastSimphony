@@ -1,27 +1,45 @@
 <repast.simphony.data2.engine.DataSetDescriptor simphonyVersion="2.10.0">
-  <name>has learned</name>
-  <type>NON_AGGREGATE</type>
-  <sourceType>tris.player.PlayerGrid2DAbstract</sourceType>
+  <name>WinPL1 WinPl2 Draws</name>
+  <type>AGGREGATE</type>
   <inclTick>true</inclTick>
   <inclBatchRun>false</inclBatchRun>
   <inclRandomSeed>false</inclRandomSeed>
   <scheduleParams>
     <start>1.0</start>
-    <interval>8000.0</interval>
+    <interval>2000.0</interval>
     <priority>-Infinity</priority>
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>1104452130</hashCode>
+    <hashCode>898928291</hashCode>
   </scheduleParams>
   <atEnd>false</atEnd>
   <methodDataSources class="linked-hash-map">
     <entry>
-      <string>hasPlotLearned</string>
+      <string>WinPL1</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>hasPlotLearned</id>
-        <className>tris.player.PlayerGrid2DAbstract</className>
-        <methodName>hasPlotLearned</methodName>
+        <id>WinPL1</id>
+        <className>tris.player.Player1</className>
+        <methodName>getWins</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>WinPL2</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>WinPL2</id>
+        <className>tris.player.Player2</className>
+        <methodName>getWins</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Ties</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Ties</id>
+        <className>tris.player.Player2</className>
+        <methodName>getTies</methodName>
+        <aggType>SUM</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
   </methodDataSources>

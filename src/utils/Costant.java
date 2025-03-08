@@ -22,8 +22,7 @@ public final class Costant {
 	final public static boolean LOAD_QTABLE =false;
 	final public static boolean TURN_MODE = true;
 	
-	final public static boolean VERSIONS_QTABLE_UPDATE = true;
-
+	final public static boolean VERSIONS_QTABLE_UPDATE = true; 
 
 
 

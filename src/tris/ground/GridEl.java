@@ -1,10 +1,11 @@
 package tris.ground;
 
 public class GridEl<T> {
-	private int[] pos=new int[2];
+	private int posX;
+	private int posY;
 	private int order;
-
 	private T elememt;
+	
 	public GridEl(int order,T el) {
 		this.elememt=el;
 		this.order=order;
@@ -15,15 +16,9 @@ public class GridEl<T> {
 		return order;
 	}
 
-	public GridEl(int order,T el, int ...ps ) {
-		int i=0;
-		for (int v:ps ) {
-			if (i==2)
-				break;
-			pos[i]=v;
-			i++;
-		}
-		
+	public GridEl(int order,T el, int dimX,int dimY ) {
+		posX=dimX;
+		posY=dimY;
 		this.elememt=el;
 		this.order=order;
 
@@ -36,17 +31,15 @@ public class GridEl<T> {
 	public T getEl() { 
 		return elememt;
 	}
-	public int[] getPos() { 
-		return pos;
+	public int getPosX() { 
+		return posX;
 	}
-	public void setPos(int ...ps) { 
-		int i=0;
-		for (int v:ps ) {
-			if (i==2)
-				break;
-			pos[i]=v;
-			i++;
-		}
+	public int getPosY() { 
+		return posY;
+	}
+	public void setPos( int dimX,int dimY) { 
+		posX=dimX;
+		posY=dimY;
 		
 	}
 

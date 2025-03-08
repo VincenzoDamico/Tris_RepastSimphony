@@ -1,9 +1,9 @@
 <repast.simphony.chart2.engine.TimeSeriesChartDescriptor simphonyVersion="2.10.0">
-  <name>HLA PL1</name>
-  <dataSet>Has learned Aggregate</dataSet>
+  <name>ExplorationRateTimeSeries</name>
+  <dataSet>ExplorationRateData</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
-  <yAxisLabel>value</yAxisLabel>
-  <chartTitle>HLA PL1</chartTitle>
+  <yAxisLabel>Epsilon value</yAxisLabel>
+  <chartTitle>ExplorationRateDataEvolution</chartTitle>
   <type>TIME_SERIES</type>
   <background>
     <red>192</red>
@@ -21,13 +21,25 @@
   <showLegend>true</showLegend>
   <seriesIds>
     <entry>
-      <string>pl1</string>
+      <string>ExplorationRateDataPL1</string>
       <SeriesData>
-        <label>pl1</label>
+        <label>ExplorationRateDataPL1</label>
         <color>
           <red>0</red>
           <green>0</green>
           <blue>255</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>ExplorationRateDataPL2</string>
+      <SeriesData>
+        <label>ExplorationRateDataPL2</label>
+        <color>
+          <red>255</red>
+          <green>0</green>
+          <blue>0</blue>
           <alpha>255</alpha>
         </color>
       </SeriesData>

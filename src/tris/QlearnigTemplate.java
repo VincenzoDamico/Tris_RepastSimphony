@@ -1,7 +1,4 @@
 package tris;
-
-import repast.simphony.engine.environment.RunEnvironment;
-import repast.simphony.engine.schedule.ScheduledMethod;
 import utils.Pair;
 public abstract class QlearnigTemplate {
 

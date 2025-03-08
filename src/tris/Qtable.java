@@ -1,7 +1,6 @@
 package tris;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -36,27 +35,24 @@ public class Qtable implements Cloneable,Serializable{
 	 public int getGridDimY() {
 	        return gridDimY;
 	 }
-	  
-	 //devo esccludere le azioni non possibili?
-	public float maxValue(String configuration) {
-		
+	 
+	 //Prendo il peso massimo associato alla configurazione
+	 public float maxValue(String configuration) {
 		Float[] f=qtable.get(configuration);
 		if (f==null) {
 		     return 0f;
 		}
+		//per come ho realizzato la logica aono sicuro di prendere il massimo
 		float max=(float)Double.NEGATIVE_INFINITY;
 		for(int i=0; i<f.length; i++) {
 			if(f[i]!=null&&f[i]>max) 
 				max=f[i];
 		}
-
 		return max;
-		
 	}
 	
 	public  Pair<Integer,Integer> maxKnowAction(String configuration,List<Pair<Integer,Integer>>possibleAction) {
 		Float[] f=qtable.get(configuration);	
-		
 		System.out.println("PossibleAction:");
 		System.out.println(Arrays.toString(possibleAction.toArray()));
 		System.out.println("Configuration:");

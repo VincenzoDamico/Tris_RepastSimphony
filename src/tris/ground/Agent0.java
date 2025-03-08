@@ -8,8 +8,8 @@ public class Agent0<T> extends GridEl<T>{
 	public Agent0(int order,T el ) {
 		super(order,el);		
 	}
-	public Agent0( int order,T el, int ...ps ) {
-		super(order,el,ps);
+	public Agent0( int order,T el, int psX,int psY ) {
+		super(order,el,psX,psY);
 	}
 
 }

@@ -6,32 +6,20 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
-import javax.swing.JOptionPane;
 
 import repast.simphony.engine.environment.RunEnvironment;
-import repast.simphony.engine.schedule.ScheduledMethod;
-import repast.simphony.space.grid.Grid;
 import tris.QlearnigTemplate;
 import tris.Qtable;
+import tris.ground.DashBoard;
 import tris.ground.GridEl;
 import tris.ground.GridPlayGround;
 import utils.Costant;
-import utils.ElementWrap;
 import utils.Pair;
 
 public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements Player	{
 	private GridPlayGround<String> grid ;
-	private int countWin=0;
-	private ElementWrap<Integer > countTies;
+	private DashBoard dashBoard;
 	private Qtable q_table;
 	private Qtable old_Qtable;
 	private GridEl<String> mark;
@@ -41,9 +29,9 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 	private Pair<String, Pair<Integer,Integer>> state_actionOpp;
 	private PlayerGrid2DAbstract opponent;
 	
-	public PlayerGrid2DAbstract (  GridPlayGround grid, List<Pair<Integer,Integer>>possibleAction, GridEl<String> mark,ElementWrap<Integer > countTies) {
+	public PlayerGrid2DAbstract (  GridPlayGround grid, List<Pair<Integer,Integer>>possibleAction, GridEl<String> mark,DashBoard dashBoard) {
 		this.grid = grid ;
-		this.countTies=countTies;		
+		this.dashBoard=dashBoard;		
 		this.mark=mark;
 		loadQtable();
 		this.possibleAction=possibleAction;
@@ -57,7 +45,7 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
     	opponentMove=false;
 	}
 
-	
+	//può essere attivato o disattivatoda costant
 	private void loadQtable() {
 		File file = new File(Costant.NAME_FILE+mark.getEl());
 		if (!file.exists()||!Costant.LOAD_QTABLE) {
@@ -107,8 +95,8 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 		if (grid.isEmpty())
 			grid.notifyStartTurn(mark.getEl());
 		
-		System.out.println("Inizio del match numero: "+grid.getNubMatch()
-		+"\nTocca a Player "+mark.getEl());
+		System.out.println("Inizio del match numero: "+dashBoard.getMatches()+
+				"\nTocca a Player "+mark.getEl());
 		
 		float el=(float) Math.random();
 		String configuration=grid.extractConf();
@@ -129,7 +117,6 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 	protected Pair<String, Pair<Integer,Integer>> exploreAction() {
 		if(!opponent.opponentMove) {
 			System.out.println("Recap situazione:");
-			printInfo();
 			System.out.println("Player "+mark.getEl()+ " sta esporando.......");
 			String configuration=grid.extractConf();
 			System.out.println("Vecchia Configurazione");
@@ -155,7 +142,6 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 	protected Pair<String, Pair<Integer,Integer>> greedyAction() {
 		if(!opponent.opponentMove) {
 			System.out.println("Recap situazione:");
-			printInfo();
 			System.out.println("Player "+mark.getEl()+ " sta applicando greedy policy.......");
 			String configuration=grid.extractConf();
 			System.out.println("Vecchia Conf");
@@ -192,21 +178,18 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 		if (won || draw) {
 			if (won) {
 				reward=Costant.WIN_REWARD;
-				grid.updateWinReward(mark.getOrder());
+				dashBoard.updateWin(mark.getOrder());
 				System.out.println("\nIl Player: "+mark+" ha vintooooooo!!");
-				countWin++;
 			}else {
 				if (draw) {
 					reward=Costant.DRAW_REWARD;
-					grid.updateDrawReward();
+					dashBoard.updateDraw();
 					System.out.println("\nHanno pareggiato!!");
-					countTies.setEl(countTies.getEl()+1);
 				}
 			}
 			System.out.println("----------RISULTATI---------------");
-			System.out.println("\nFine match numero: "+grid.getNubMatch());
-			int loss=grid.getNubMatch()-countTies.getEl()-countWin;
-			System.out.println("Il Player"+mark+" -> Numero di vittorie: "+countWin+" Numero di pareggi: "+countTies+" Numero di sconfitte: "+loss);
+			System.out.println("\nFine match numero: "+dashBoard.getMatches());
+			System.out.println("Il Player"+mark+" -> Numero di vittorie: "+getWins()+" Numero di pareggi: "+getTies()+" Numero di sconfitte: "+dashBoard.getLosses(mark.getOrder()));
 			System.out.println("Valore parametro di confronto: "+q_table.hasLearned(old_Qtable));
 			System.out.println("----------------------------------");
 
@@ -225,7 +208,8 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 					}
 				}
 		}
-		if(Costant.VERSIONS_QTABLE_UPDATE) {
+		 //è un versione dell'aggiornameneto della q-table che ho provato è funziona meglio
+		 if(Costant.VERSIONS_QTABLE_UPDATE) {
 	        neWconfiguration=grid.extractConf();
 		}
 
@@ -233,9 +217,7 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 
 		float val=oldValue+Costant.ALPHA*(reward+Costant.DISCOUNT_FACTOR*q_table.maxValue(neWconfiguration) - oldValue);
 		q_table.setValue(oldState,oldAction,val);	
-		System.out.println("Nuovo valore: "+val);
-		printInfo();
-	
+		System.out.println("Nuovo valore: "+val);	
 	}
 
 	
@@ -298,27 +280,24 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 		grid.printFinalData();
 		RunEnvironment.getInstance().endRun();
 	}
-	
-	private void printInfo() {
-		//System.out.println("\nIl Player"+mark+" la Q table:");
-		//System.out.println(q_table);
-		//System.out.println("\nIl Player"+mark+" la old Q table:");
-		//System.out.println(old_Qtable);
-	}
+
 	
 	public float getReward() {
-		return grid.getReward(mark.getOrder());
+		return dashBoard.getReward(mark.getOrder());
 	}
 
 	
 	public GridEl<String> getMark() {
 		return mark;
 	}
+	
+	//vengono richiamate da Repast per vedere se l'agente ha imparato
 	public int getWins() {
-		return countWin;
+		return dashBoard.getWins(mark.getOrder());
 	}
+	//vengono richiamate da Repast per vedere se l'agente ha imparato
 	public int getTies() {
-		return countTies.getEl();
+		return dashBoard.getTies();
 	}
 
 	public void updateOldQtable() {

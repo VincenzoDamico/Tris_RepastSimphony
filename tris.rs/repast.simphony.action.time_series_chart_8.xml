@@ -1,9 +1,9 @@
 <repast.simphony.chart2.engine.TimeSeriesChartDescriptor simphonyVersion="2.10.0">
-  <name>Reward</name>
-  <dataSet>Reward</dataSet>
+  <name>has learned Aggragate</name>
+  <dataSet>Has learned Aggregate</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
-  <yAxisLabel>Reward</yAxisLabel>
-  <chartTitle>Reward</chartTitle>
+  <yAxisLabel>value</yAxisLabel>
+  <chartTitle>hasLearned</chartTitle>
   <type>TIME_SERIES</type>
   <background>
     <red>192</red>
@@ -21,25 +21,25 @@
   <showLegend>true</showLegend>
   <seriesIds>
     <entry>
-      <string>RewardPl2</string>
+      <string>pl1</string>
       <SeriesData>
-        <label>RewardPl2</label>
+        <label>pl1</label>
         <color>
-          <red>255</red>
+          <red>0</red>
           <green>0</green>
-          <blue>0</blue>
+          <blue>255</blue>
           <alpha>255</alpha>
         </color>
       </SeriesData>
     </entry>
     <entry>
-      <string>RewardPl1</string>
+      <string>pl2</string>
       <SeriesData>
-        <label>RewardPl1</label>
+        <label>pl2</label>
         <color>
-          <red>0</red>
+          <red>255</red>
           <green>0</green>
-          <blue>255</blue>
+          <blue>0</blue>
           <alpha>255</alpha>
         </color>
       </SeriesData>
