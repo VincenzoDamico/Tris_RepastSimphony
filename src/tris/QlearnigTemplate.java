@@ -2,7 +2,7 @@ package tris;
 import utils.Pair;
 public abstract class QlearnigTemplate {
 
-	public void QlearningAlg () {
+	public void qlearningAlg () {
 		Pair<String, Pair<Integer,Integer>>state_action=epsilonGreedyPolicy();
 		
 		updateQtable(state_action.getFirst(),state_action.getSecond());

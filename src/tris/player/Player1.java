@@ -29,7 +29,7 @@ public class Player1 extends PlayerGrid2DAbstract	{
 				return;
 			}
 			System.out.println("\nSiamo nel Match numero: "+dashBoard.getMatches());
-			QlearningAlg();
+			qlearningAlg();
 			
 	}
 	 

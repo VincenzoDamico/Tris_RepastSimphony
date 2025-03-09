@@ -11,6 +11,7 @@ public class Player2 extends PlayerGrid2DAbstract	{
 	private GridPlayGround grid;
 	private GridEl<String> mark;
 	private DashBoard dashBoard;
+	
 	public Player2(GridPlayGround grid, List<Pair<Integer, Integer>> possibleAction, 
 			GridEl<String> mark,DashBoard dashBoard) {
 		super(grid, possibleAction, mark,dashBoard);
@@ -27,7 +28,7 @@ public class Player2 extends PlayerGrid2DAbstract	{
 				return;
 			}
 			System.out.println("\nSiamo nel Match numero: "+dashBoard.getMatches());
-			QlearningAlg();
+			qlearningAlg();
 	}
 	 
 }
