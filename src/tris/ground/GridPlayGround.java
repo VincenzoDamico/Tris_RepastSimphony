@@ -8,20 +8,20 @@ import repast.simphony.space.grid.GridBuilderParameters;
 import repast.simphony.space.grid.SimpleGridAdder;
 import repast.simphony.space.grid.StrictBorders;
 import tris.player.PlayerGrid2DAbstract;
-import utils.Costant;
+import utils.Costants;
 
 public class GridPlayGround <T> {
 	private Grid <  GridEl<T> > gridTris;
 	private Context<Object> context;
 	private boolean restart=false;
-	private String oldTurnMark= Costant.MARKPL1;
+	private String oldTurnMark= Costants.MARKPL1;
 	private PlayerGrid2DAbstract[] opponents;
 	private DashBoard dash;
 		
 	public GridPlayGround(Context<Object> context, DashBoard dash){
 		GridFactory gridFactory = GridFactoryFinder . createGridFactory ( new HashMap() );
 		GridBuilderParameters gparam=GridBuilderParameters.singleOccupancyND
-				( new SimpleGridAdder<Object>(), new StrictBorders(),  Costant.DIMGRIDX,Costant.DIMGRIDY);
+				( new SimpleGridAdder<Object>(), new StrictBorders(),  Costants.DIMGRIDX,Costants.DIMGRIDY);
 		this.dash=dash;
 		this.gridTris = gridFactory . createGrid ("gridTris", context , gparam);
 		this.context=context;
@@ -30,8 +30,8 @@ public class GridPlayGround <T> {
 
 //Informazioni sulla griglia
 	public boolean isEmpty() {
-		for (int j = Costant.DIMGRIDY-1; j >=0; j--) {	    
-			for (int i = 0; i <Costant.DIMGRIDX; i++) {
+		for (int j = Costants.DIMGRIDY-1; j >=0; j--) {	    
+			for (int i = 0; i <Costants.DIMGRIDX; i++) {
 				if(gridTris.getObjectAt(i,j)!=null)
 					return false;
 			}
@@ -42,9 +42,9 @@ public class GridPlayGround <T> {
 	//inverto la griglia poichè viene rappresentata in questo modo sulla gui di repest
 	public String extractConf() {
 		String ret="";
-		for (int j = Costant.DIMGRIDY-1; j >=0; j--) {	    
-			for (int i = 0; i <Costant.DIMGRIDX; i++) {
-				ret+=(gridTris.getObjectAt(i,j)==null ? "- \t":gridTris.getObjectAt(i,j).toString()+" \t");	
+		for (int j = Costants.DIMGRIDY-1; j >=0; j--) {	    
+			for (int i = 0; i <Costants.DIMGRIDX; i++) {
+				ret+=(gridTris.getObjectAt(i,j)==null ? Costants.EMPTYSYMBOL+" \t":gridTris.getObjectAt(i,j).toString()+" \t");	
 			}
 			ret+="\n";
 		}
@@ -72,8 +72,8 @@ public class GridPlayGround <T> {
 //Modifiche sulla griglia	
 	
 	public void clear() {
-	    for (int i = 0; i < Costant.DIMGRIDX; i++) {
-			for (int j = 0; j < Costant.DIMGRIDY; j++) {
+	    for (int i = 0; i < Costants.DIMGRIDX; i++) {
+			for (int j = 0; j < Costants.DIMGRIDY; j++) {
 				GridEl<T> el = gridTris.getObjectAt(i, j);
 		            if (el != null) {
 		                context.remove(el);
@@ -88,41 +88,41 @@ public class GridPlayGround <T> {
 		if (element instanceof AgentX) {
 			//ricorda che la matrice è ribaltata
 			//player1
-			AgentX<T> el= new AgentX<>(2,element.getEl(),element.getPosY(),Costant.DIMGRIDY-1-element.getPosX());
+			AgentX<T> el= new AgentX<>(2,element.getEl(),element.getPosY(),Costants.DIMGRIDY-1-element.getPosX());
 			context.add(el);
-			gridTris.moveTo(el,element.getPosY(),Costant.DIMGRIDY-1-element.getPosX());		
+			gridTris.moveTo(el,element.getPosY(),Costants.DIMGRIDY-1-element.getPosX());		
 		}else {
 			//player2
 			//ricorda che la matrice è ribaltata
-			Agent0<T> el= new Agent0<>(2,element.getEl(),element.getPosY(),Costant.DIMGRIDY-1-element.getPosX());
+			Agent0<T> el= new Agent0<>(2,element.getEl(),element.getPosY(),Costants.DIMGRIDY-1-element.getPosX());
 			context.add(el);
-			gridTris.moveTo(el,element.getPosY(),Costant.DIMGRIDY-1-element.getPosX());	
+			gridTris.moveTo(el,element.getPosY(),Costants.DIMGRIDY-1-element.getPosX());	
 		}
 	}
 
 // verifica risultato della partita
 	public boolean isFullGrid() {
-		return  size()==Costant.DIMGRIDX*Costant.DIMGRIDY;
+		return  size()==Costants.DIMGRIDX*Costants.DIMGRIDY;
 	}
 	
 	public  boolean isWinner(String s) {
-	    for (int i = 0; i < Costant.DIMGRIDX; i++) {
-	    	for (int j = 0; j < Costant.DIMGRIDY; j++) {
+	    for (int i = 0; i < Costants.DIMGRIDX; i++) {
+	    	for (int j = 0; j < Costants.DIMGRIDY; j++) {
 	    		if( getElAt( i,j)!=null && getElAt( i,j).getEl().equals(s)) {
-	    			int[] countV= {Costant.WINCOUNT-1,Costant.WINCOUNT-1,Costant.WINCOUNT-1,Costant.WINCOUNT-1};
+	    			int[] countV= {Costants.WINCOUNT-1,Costants.WINCOUNT-1,Costants.WINCOUNT-1,Costants.WINCOUNT-1};
     				boolean[] exitFlag= new boolean[4];
-    				for (int t=1; t<Costant.WINCOUNT;t++) {
+    				for (int t=1; t<Costants.WINCOUNT;t++) {
     					// analizzo la colonna
-    					if( !exitFlag[0] &&i+t<Costant.DIMGRIDX && getElAt(i+t,j)!=null&&  getElAt(i+t,j).getEl().equals(s)) countV[0]--;
+    					if( !exitFlag[0] &&i+t<Costants.DIMGRIDX && getElAt(i+t,j)!=null&&  getElAt(i+t,j).getEl().equals(s)) countV[0]--;
     					else exitFlag[0]=true;
     					// analizzo la riga
-    					if( !exitFlag[1] && j+t<  Costant.DIMGRIDY && getElAt(i,j+t)!=null&& getElAt(i,j+t).getEl().equals(s)) countV[1]--;
+    					if( !exitFlag[1] && j+t<  Costants.DIMGRIDY && getElAt(i,j+t)!=null&& getElAt(i,j+t).getEl().equals(s)) countV[1]--;
     					else exitFlag[1]=true;	
     					// analizzo la la diagonale primaria
-    					if( !exitFlag[2] && j+t<  Costant.DIMGRIDY &&i+t<Costant.DIMGRIDX && getElAt(i+t,j+t)!=null&& getElAt(i+t,j+t).getEl().equals(s)) countV[2]--;
+    					if( !exitFlag[2] && j+t<  Costants.DIMGRIDY &&i+t<Costants.DIMGRIDX && getElAt(i+t,j+t)!=null&& getElAt(i+t,j+t).getEl().equals(s)) countV[2]--;
     					else exitFlag[2]=true;
     					// analizzo la diagonale secondaria
-    					if( !exitFlag[3] && j-t>=0 &&i+t<Costant.DIMGRIDX&& getElAt(i+t,j-t)!=null&& getElAt(i+t,j-t).getEl().equals(s)) countV[3]--;
+    					if( !exitFlag[3] && j-t>=0 &&i+t<Costants.DIMGRIDX&& getElAt(i+t,j-t)!=null&& getElAt(i+t,j-t).getEl().equals(s)) countV[3]--;
     					else exitFlag[3]=true;
     					
     					if(exitFlag[0]&&exitFlag[1]&&exitFlag[2]&&exitFlag[3]) break;
@@ -157,7 +157,7 @@ public class GridPlayGround <T> {
 		restart= !restart;
 	}
 	public boolean isGameOver() {
-		return dash.getMatches()==Costant.MAXREP;
+		return dash.getMatches()==Costants.MAXREP;
 	}
 
 	public void notifyStartTurn(String mark) {

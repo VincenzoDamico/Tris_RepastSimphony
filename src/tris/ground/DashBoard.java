@@ -2,7 +2,7 @@ package tris.ground;
 
 
 
-import utils.Costant;
+import utils.Costants;
 
 public class DashBoard {
 	private int countMatches=1;
@@ -11,21 +11,21 @@ public class DashBoard {
 	private float[] rewards;
 	
 	public DashBoard() {
-		countWin=new int[Costant.NUM_PLAYERS];
-		rewards=new float[Costant.NUM_PLAYERS];
+		countWin=new int[Costants.NUM_PLAYERS];
+		rewards=new float[Costants.NUM_PLAYERS];
 	}
 	
 	public void updateWin(int i) {	
 		countWin[i-1]+=1;
-		rewards[i-1]+=Costant.WIN_REWARD;
+		rewards[i-1]+=Costants.WIN_REWARD;
 		for (int j=0; j<rewards.length;j++)
 			if(j!=(i-1))
-				rewards[j]+=Costant.LOSE_REWARD;
+				rewards[j]+=Costants.LOSE_REWARD;
 		
 	}
 	public void updateDraw() {
 		for (int j=0; j<rewards.length;j++)
-			rewards[j]+=Costant.DRAW_REWARD;
+			rewards[j]+=Costants.DRAW_REWARD;
 		countTies+=1;
 
 	}

@@ -1,5 +1,5 @@
 package tris.player;
-import utils.Costant;
+import utils.Costants;
 import utils.Pair;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class Player1 extends PlayerGrid2DAbstract	{
 	@Override
 	@ScheduledMethod( start = 1 , interval = 2) 
 	public void step () {
-			if(grid.isRestarting()&& !grid.isYourTurn(mark.getEl()) && Costant.TURN_MODE) {
+			if(grid.isRestarting()&& !grid.isYourTurn(mark.getEl()) && Costants.TURN_MODE) {
 				//Sto saltando la mossa perchè non è il mio turno
 				return;
 			}

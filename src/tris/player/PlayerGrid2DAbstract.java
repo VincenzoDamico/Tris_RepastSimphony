@@ -14,7 +14,7 @@ import tris.Qtable;
 import tris.ground.DashBoard;
 import tris.ground.GridEl;
 import tris.ground.GridPlayGround;
-import utils.Costant;
+import utils.Costants;
 import utils.Pair;
 
 public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements Player	{
@@ -47,14 +47,15 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 
 	//può essere attivato o disattivatoda costant
 	private void loadQtable() {
-		File file = new File(Costant.NAME_FILE+mark.getEl());
-		if (!file.exists()||!Costant.LOAD_QTABLE) {
-			q_table=new Qtable(Costant.DIMGRIDX, Costant.DIMGRIDY,Costant.MARKPL2,Costant.MARKPL1); 
+		File file = new File(Costants.NAME_FILE+mark.getEl());
+		if (!file.exists()||!Costants.LOAD_QTABLE) {
+			q_table=new Qtable(Costants.DIMGRIDX, Costants.DIMGRIDY,Costants.MARKPL2,Costants.MARKPL1,Costants.EMPTYSYMBOL); 
 		}else {
 	        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
 	        	q_table = (Qtable)ois.readObject();
-	            if (q_table.getGridDimX()!=Costant.DIMGRIDX || q_table.getGridDimY()!=Costant.DIMGRIDY) {
-	                    q_table=new Qtable(Costant.DIMGRIDX, Costant.DIMGRIDY,Costant.MARKPL2,Costant.MARKPL1);
+	            if (q_table.getGridDimX()!=Costants.DIMGRIDX || q_table.getGridDimY()!=Costants.DIMGRIDY || !(Costants.MARKPL1.equals(q_table.getSymbol1())||Costants.MARKPL1.equals(q_table.getSymbol2())) ||
+                        !(Costants.MARKPL2.equals(q_table.getSymbol1())||Costants.MARKPL2.equals(q_table.getSymbol2())) ||!Costants.EMPTYSYMBOL.equals(q_table.getEmptySymbol())) {
+	                    q_table=new Qtable(Costants.DIMGRIDX, Costants.DIMGRIDY,Costants.MARKPL2,Costants.MARKPL1,Costants.EMPTYSYMBOL);
 	    	            System.out.println("Qtable"+mark.getEl()+" si riferisce ad una griglia differente da quella che si sta esaminando" );
 	            }else{
     	            System.out.println("Qtable"+mark.getEl()+" letta con successo!");
@@ -62,7 +63,7 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 	        	ois.close();
 	        }catch(IOException |  ClassNotFoundException e){
 	            System.err.println("Errore durante la lettura del file: " + e.getMessage());
-				q_table=new Qtable(Costant.DIMGRIDX, Costant.DIMGRIDY,Costant.MARKPL2,Costant.MARKPL1); 
+				q_table=new Qtable(Costants.DIMGRIDX, Costants.DIMGRIDY,Costants.MARKPL2,Costants.MARKPL1,Costants.EMPTYSYMBOL); 
 	        }
 		}
 	}
@@ -73,7 +74,7 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 		possibleAction.clear();
 		grid.updateOldQtable();
 		grid.clear();
-		Pair.fillPair(possibleAction, Costant.DIMGRIDX,  Costant.DIMGRIDY );
+		Pair.fillPair(possibleAction, Costants.DIMGRIDX,  Costants.DIMGRIDY );
 
 	}
 	
@@ -108,8 +109,8 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 	
 	//faccio il metodo così lo posso graficare 
 	public float explorationRate() {
-		float exponential_dec=(float) (Costant.EPSION*Math.exp(-countStep*Costant.EXPONENTIAL_DECAY));
-		float exploration_rate=exponential_dec>Costant.EPSION_MIN?exponential_dec:Costant.EPSION_MIN;
+		float exponential_dec=(float) (Costants.EPSION*Math.exp(-countStep*Costants.EXPONENTIAL_DECAY));
+		float exploration_rate=exponential_dec>Costants.EPSION_MIN?exponential_dec:Costants.EPSION_MIN;
 		return exploration_rate;
 	}
 	
@@ -177,12 +178,12 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 		float reward=0;		
 		if (won || draw) {
 			if (won) {
-				reward=Costant.WIN_REWARD;
+				reward=Costants.WIN_REWARD;
 				dashBoard.updateWin(mark.getOrder());
 				System.out.println("\nIl Player: "+mark+" ha vintooooooo!!");
 			}else {
 				if (draw) {
-					reward=Costant.DRAW_REWARD;
+					reward=Costants.DRAW_REWARD;
 					dashBoard.updateDraw();
 					System.out.println("\nHanno pareggiato!!");
 				}
@@ -201,21 +202,21 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 				System.out.println("-----------FINE MOSSA OPPONENTE---------------");
 				notifyOpponetAction();
 				if(grid.isWinner(opponent.getMark().getEl()))
-					reward=Costant.LOSE_REWARD;
+					reward=Costants.LOSE_REWARD;
 				else{
 					if(grid.isFullGrid()) {
-						reward=Costant.DRAW_REWARD;
+						reward=Costants.DRAW_REWARD;
 					}
 				}
 		}
 		 //è un versione dell'aggiornameneto della q-table che ho provato è funziona meglio
-		 if(Costant.VERSIONS_QTABLE_UPDATE) {
+		 if(Costants.VERSIONS_QTABLE_UPDATE) {
 	        neWconfiguration=grid.extractConf();
 		}
 
 		float oldValue=q_table.getValue(oldState, oldAction);
 
-		float val=oldValue+Costant.ALPHA*(reward+Costant.DISCOUNT_FACTOR*q_table.maxValue(neWconfiguration) - oldValue);
+		float val=oldValue+Costants.ALPHA*(reward+Costants.DISCOUNT_FACTOR*q_table.maxValue(neWconfiguration) - oldValue);
 		q_table.setValue(oldState,oldAction,val);	
 		System.out.println("Nuovo valore: "+val);	
 	}
@@ -242,7 +243,7 @@ public abstract class PlayerGrid2DAbstract extends QlearnigTemplate implements P
 	
 	//lo chiamo con uno stratagemma alla fine
 	public int  saveData() {
-		try ( ObjectOutputStream pw = new ObjectOutputStream(new FileOutputStream(Costant.NAME_FILE+mark.getEl()))){
+		try ( ObjectOutputStream pw = new ObjectOutputStream(new FileOutputStream(Costants.NAME_FILE+mark.getEl()))){
 			pw.writeObject(q_table);
 			System.out.println("Qtable"+mark.getEl()+" salvata con successo.");
 			pw.close();

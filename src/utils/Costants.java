@@ -1,6 +1,6 @@
 package utils;
 
-public final class Costant {
+public final class Costants {
 	final public static int DIMGRIDX=3;
 	final public static int DIMGRIDY=3;
 	final public static int WINCOUNT=3;
@@ -19,6 +19,8 @@ public final class Costant {
 	final public static float DRAW_REWARD=0f;
 	final public static String MARKPL2 ="O";
 	final public static String MARKPL1 ="X";
+	final public static String EMPTYSYMBOL ="-";
+
 	final public static boolean LOAD_QTABLE =false;
 	final public static boolean TURN_MODE = true;
 	
